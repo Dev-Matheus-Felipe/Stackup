@@ -40,9 +40,12 @@ public class AuthService {
             return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("token", token));
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", "Something went wrong!"));
+            e.printStackTrace();
 
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("message", e.getMessage()));
         }
+
     }
 
 

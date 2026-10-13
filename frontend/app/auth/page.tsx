@@ -1,7 +1,7 @@
 import AuthContent from "./authContent";
 
 export default async function Auth(){
-   // ALREADY LOGGED LOGIC HERE...
+   // LOGIC HERE...
 
 
   return (

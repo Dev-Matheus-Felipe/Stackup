@@ -17,7 +17,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${roboto.variable} ${roboto.variable} h-full antialiased w-full bg-red-500!`}
+      className={`${roboto.variable} ${roboto.variable} h-full antialiased w-full`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
