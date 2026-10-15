@@ -3,7 +3,7 @@
 import { getToken } from "./token";
 
 const API_URL = process.env.API_URL;
-const API_PORT = process.env.API_URL;
+const API_PORT = process.env.API_PORT;
 
 export default async function apiFetch<T>({
   endpoint,
