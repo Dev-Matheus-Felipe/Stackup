@@ -2,14 +2,12 @@ import { LibraryBig } from "lucide-react";
 import AuthContent from "./authContent";
 
 export default async function Auth(){
-   // LOGIC HERE...
-
 
   return (
-    <div className="min-h-screen w-full flex flex-1">
+    <div className="w-full flex flex-1">
 
       {/* BANNER */}
-      <div className="hidden lg:flex bg-(--navy) flex-1 w-1/2 h-full relative overflow-hidden items-center lg:px-[9%]">
+      <div className="hidden lg:flex bg-(--navy) flex-1 w-1/2 min-h-full relative overflow-hidden items-center lg:px-[9%]">
 
         {/* CARD */}
         <div className="p-5 pr-20 border flex flex-col gap-3 h-min opacity-[0.3] bg-white/10 rounded-2xl -right-10 absolute top-1/8 rotate-6">

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { authAction } from "@/lib/actions/auth";
 import { useForm } from "react-hook-form";
 import { useState } from "react"
-import { LibraryBig } from "lucide-react";
+import { Eye, EyeOff, LibraryBig } from "lucide-react";
 
 // MANAGE AUTH METHODS DYNAMICLY INSTEAD OF CREATING ONE FOR EACH OF THEM
 
@@ -26,7 +26,7 @@ const authMethods: Record<FormStateType["type"], FormStateType> = {
     schema: RegisterSchema,
 
     uptitle: "CREATE A NEW ACCOUNT",
-    title: "Log in in your account",
+    title: "Log in to your account",
     sub: "Continue where you stopped and look at it's new.",
     text: "Doesn't have an account yet?",
     span: "Sin up"
@@ -46,31 +46,33 @@ const authMethods: Record<FormStateType["type"], FormStateType> = {
 
 export default function AuthContent(){
 
-  // (LOGIN OR REGISTER) STATES, AND ITS DATA
+  // (LOGIN OR REGISTER) STATES
   const [formState, setFormState] = useState<FormStateType["type"]>("login");
+  const [passwordEnable, setPasswordEnalbe] = useState<boolean>(false);
+
   const selectedAuth = authMethods[formState];
+  const EyeIcon = passwordEnable ? Eye : EyeOff
 
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: {errors, isLoading},
   
   } = useForm<LoginSchemaType | RegisterSchemaType>({
     resolver: zodResolver(selectedAuth.schema)
   });
 
   const handleAuth = async (data: LoginSchemaType | RegisterSchemaType) => {
-    const res: {message: string} = await authAction({data, type: selectedAuth.type});
-    alert(res.message);
+    const res: string = await authAction({data, type: selectedAuth.type});
   };
 
 
   return (
-    <div className="flex flex-1 flex-col items-end gap-5 p-5">
+    <div className="flex flex-1 flex-col items-end gap-5 es:p-5 p-2">
       <div className="flex w-full flex-1 flex-col es:gap-10 gap-5 items-center justify-center">
 
         {/* HEADER */}
-        <div className="lg:hidden flex gap-2 items-center justify-start mb-5 es:w-110 w-full">
+        <div className="lg:hidden flex gap-2 items-center justify-start max-es:justify-center mb-5 es:w-110 w-full">
           <div className="p-2 rounded-md bg-(--orange)"><LibraryBig size={25} /></div>
           <h1 className="font-bold text-lg">
             Stack
@@ -82,7 +84,7 @@ export default function AuthContent(){
         <div className="flex flex-col es:gap-10 gap-5 max-es:w-full">
 
           {/* TITLE */}
-          <div className=" flex flex-col gap-2">
+          <div className=" flex flex-col gap-2 max-es:items-center">
             <h3 className="font-semibold text-(--orange-dark) text-xs tracking-wider">{selectedAuth.uptitle}</h3>
             <h1 className="font-semibold text-3xl">{selectedAuth.title}</h1>
             <p className="text-(--muted) font-light text-xs">{selectedAuth.sub}</p>
@@ -92,12 +94,16 @@ export default function AuthContent(){
             { formState == "register" &&
               <div className="flex flex-col gap-2 text-xs">
                 <label htmlFor="username" className="font-bold">Username</label>
+
                 <input 
                   {...register("username")} 
                   id="username"
+                  type="text"
                   placeholder="How do we can call you?"
                   className="bg-(--bg) es:w-110 w-full max-es:w-full p-4  border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
                   />
+
+                  <p>username wrong!</p>
               </div>
             }
 
@@ -106,22 +112,42 @@ export default function AuthContent(){
               <input 
                 {...register("email")} 
                 id="email"
+                type="email"
                 placeholder="you@example.com"
-                className="bg-(--bg) es:w-110 w-full max-es:w-full p-4 border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
+                className="bg-(--bg) es:w-110 w-full max-es:w-full p-4 border border-(--border) rounded-md  focus:ring-1 focus:ring-(--orange-dark) outline-none"
                 />
+
+              { errors.email && <p className="text-red-500 mb-2">{errors.email.message}</p> }
             </div>
 
             <div className="flex flex-col gap-2 text-xs">
               <label htmlFor="password" className="font-bold">Password</label>
-              <input 
-                {...register("password")} 
-                id="password"
-                placeholder="Minimumn of 8 characters"
-                className=" bg-(--bg) es:w-110 w-full max-es:w-full p-4 border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
+              <div className="es:w-110 w-full max-es:w-full relative">
+                <input 
+                  {...register("password")} 
+                  id="password"
+                  type={passwordEnable ? "text" : "password"}
+                  placeholder="Minimumn of 8 characters"
+                  className="bg-(--bg) w-full p-4 pr-10 border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
                 />
+
+                <button 
+                  type="button" 
+                  onClick={() => setPasswordEnalbe(prev => !prev)}
+                  className="absolute top-1/2 right-3 -translate-y-1/2 p-1.5 rounded hover:bg-(--button-hover) cursor-pointer"
+                >
+                  <EyeIcon size={16} color="var(--muted)" />
+                </button>
+              </div>
+
+                { errors.password && <p className="text-red-500 mb-2">{errors.password.message}</p> }
             </div>
 
-            <button type="submit" className="cursor-pointer hover:bg-(--orange-dark) text-center w-full es;py-4 py-3 bg-(--orange) text-sm rounded-md text-white font-medium">
+            <button 
+              disabled={isLoading}
+              type="submit" 
+              className="cursor-pointer hover:bg-(--orange-dark) text-center w-full es;py-4 py-3 bg-(--orange) text-sm rounded-md font-medium"
+              >
               {formState == "login" ? "Login in the community" : "Create my account"}
             </button>
 
@@ -135,8 +161,13 @@ export default function AuthContent(){
 
 
           <div className="flex gap-3 text-sm">
-            <button className="hover:border-(--muted) cursor-pointer w-1/2 text-center py-2.5 font-semibold border border-(--border) rounded">Google</button>
-            <button className="hover:border-(--muted) cursor-pointer w-1/2 text-center py-2.5 font-semibold border border-(--border) rounded">Github</button>
+            <button className="hover:border-(--muted) cursor-pointer w-1/2 text-center py-2.5 font-semibold border border-(--border) rounded">
+              Google
+            </button>
+            
+            <button className="hover:border-(--muted) cursor-pointer w-1/2 text-center py-2.5 font-semibold border border-(--border) rounded">
+              Github
+            </button>
           </div>
         </div>
 

@@ -1,9 +1,7 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div>
-      I WORKED
+    <div className="w-full">
+      I WORKED 
     </div>
   );
 }

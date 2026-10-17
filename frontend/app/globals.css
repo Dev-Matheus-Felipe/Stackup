@@ -14,7 +14,11 @@
   --orange-dark: #d94c1a;
   --orange-soft: #fff0e9;
   --navy: #e8eaf0;
+
   --shadow: 0 8px 30px rgba(44, 35, 28, 0.07);
+
+  --button-bg: var(--orange);
+
 }
 
 :root {
@@ -33,7 +37,9 @@
   
   --navy: #242c3c;
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.24);
+  --button-hover: #303438;
 }
+
 
 @theme {
   --breakpoint-es: 500px;

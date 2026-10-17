@@ -12,12 +12,12 @@ export async function authAction({
   data: RegisterSchemaType | LoginSchemaType,
   type: "register" | "login",
 
-}): Promise<{message: string}> {
+}): Promise<string> {
 
   const validBody = (type == "register" ? RegisterSchema : LoginSchema).safeParse(data);
 
   if(validBody.error) {
-    return {message: "Invalid credentials!"};
+    return "Invalid credentials!";
   }
 
   const options = {
@@ -26,10 +26,11 @@ export async function authAction({
   };
 
   const res = await apiFetch<{message: string, token?: string}>({endpoint: `/auth/${type}`, options});
-
-  if(res.token){
-    await setToken({token: res.token});
+  const body = await res.json();
+  
+  if(res.ok && body.token){
+    await setToken({token: body.token});
   }
   
-  return {message: res.message};
+  return body.message ?? "logged successfully.";
 }
