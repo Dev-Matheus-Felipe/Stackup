@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import "./globals.css";
-
-const roboto = Roboto({
-  variable: "--font-Roboto",
-  subsets: ["latin"],
-});
 
 
 export const metadata: Metadata = {
@@ -15,11 +9,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${roboto.variable} ${roboto.variable} h-full antialiased w-full bg-red-500!`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+  <html lang="pt-BR">
+    <body className="min-h-screen w-full flex">
+      {children}
+    </body>
+  </html>
   );
 }

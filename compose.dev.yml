@@ -1,68 +1,10 @@
 services:
-  stackupdb:
-    container_name: stackupdb
-    image: postgres:16
-
-    env_file:
-      - ./backend/.env
-
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data
-
-    networks:
-      - back
-
-  stackupapi:
-    container_name: stackupapi
-
-    build: 
-      dockerfile: backend.dockerFile
-      context: .
-
-    depends_on:
-      stackupdb:
-        condition: service_healthy
-
-
-    env_file:
-      - ./backend/.env
-
-    networks:
-      - front
-      - back
-      
-
   stackupfront:
-    container_name: stackupfront
-  
-    build: 
-      dockerfile: frontend.dev.dockerFile
-      context: .
-
-    ports:
-      - "3000:3000"
-
     volumes:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
 
-    networks:
-      - front
-      - back
-    
-    depends_on:
-      - stackupapi
-
-networks:
-  front: 
-    driver: bridge
-  
-  back:
-    driver: bridge
+  stackupapi:
+    ports:
+      - "8085:8080"

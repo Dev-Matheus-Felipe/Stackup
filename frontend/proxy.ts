@@ -1,0 +1,21 @@
+import { NextRequest, NextResponse } from "next/server";
+
+export default function proxy(req: NextRequest){
+  const token = req.cookies.get("stackup_token")?.value;
+  const { pathname } = req.nextUrl;
+
+  if(pathname.startsWith("/auth") && token){
+    return NextResponse.redirect(new URL("/", req.url));
+  
+  } else if(!pathname.startsWith("/auth") && !token){
+    return NextResponse.redirect(new URL("/auth", req.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
+};

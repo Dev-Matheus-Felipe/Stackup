@@ -1,0 +1,20 @@
+#!/bin/bash
+
+OPTION=$1
+
+if [[ -z $OPTION ]]; then
+  echo "PLEASE TYPE ANOTHER THING BESIDES BULLSHIT"
+
+elif [[ $OPTION == "dev" ]]; then
+  docker compose -f compose.yml -f compose.dev.yml up -d
+  echo "INITIATED \nFRONTEND PORT 3000 & BACKEND PORT 8085"
+
+elif [[ $OPTION == "build" ]]; then
+  docker compose -f compose.yml build
+  echo "BUILDED SUCCESSFULLY"
+
+elif [[ $OPTION == "down" ]]; then
+  docker compose down
+  echo "CONTAINERS DOWN"
+
+fi

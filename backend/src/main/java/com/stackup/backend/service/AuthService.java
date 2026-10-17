@@ -37,12 +37,15 @@ public class AuthService {
             userRepository.save( new User(user.username(), user.email(), encryptedPassword) );
             String token = tokenService.createToken(user.email());
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("token", token));
+            return ResponseEntity.ok().body(Map.of("token", token, "message", "created sucessfully."));
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", "Something went wrong!"));
+            e.printStackTrace();
 
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("message", e.getMessage()));
         }
+
     }
 
 

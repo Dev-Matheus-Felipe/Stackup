@@ -13,8 +13,12 @@
   --orange: #f26430;
   --orange-dark: #d94c1a;
   --orange-soft: #fff0e9;
-  --navy: #242c3c;
+  --navy: #e8eaf0;
+
   --shadow: 0 8px 30px rgba(44, 35, 28, 0.07);
+
+  --button-bg: var(--orange);
+
 }
 
 :root {
@@ -26,19 +30,30 @@
   --text: #f4f1ec;
   --muted: #a6a19b;
   --border: #303438;
-  --orange-soft: #39251e;
-  --navy: #e8eaf0;
+
+  --orange: #f26430;
+  --orange-dark: #d94c1a;
+  --orange-soft: #fff0e9;
+  
+  --navy: #242c3c;
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.24);
+  --button-hover: #303438;
 }
+
 
 @theme {
   --breakpoint-es: 500px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 
 body {
-  background: var(--background);
+  background: var(--surface);
   color: var(--color);
-  
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
   box-sizing: border-box;
 }
