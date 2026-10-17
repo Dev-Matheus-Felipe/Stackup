@@ -6,6 +6,8 @@ import { authAction } from "@/lib/actions/auth";
 import { useForm } from "react-hook-form";
 import { useState } from "react"
 import { Eye, EyeOff, LibraryBig } from "lucide-react";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 // MANAGE AUTH METHODS DYNAMICLY INSTEAD OF CREATING ONE FOR EACH OF THEM
 
@@ -56,21 +58,34 @@ export default function AuthContent(){
   const {
     register,
     handleSubmit,
+    setError,
     formState: {errors, isLoading},
   
   } = useForm<LoginSchemaType | RegisterSchemaType>({
     resolver: zodResolver(selectedAuth.schema)
   });
 
+
   const handleAuth = async (data: LoginSchemaType | RegisterSchemaType) => {
-    const res: string = await authAction({data, type: selectedAuth.type});
+    toast("loging in...");
+
+    const res = await authAction({data, type: selectedAuth.type});
+
+    if(res.ok){
+      toast.success(res.message);
+      redirect("/");
+    }
+
+    else {
+      toast.error(res.message);
+      setError("email", {type: "validate", message: "Wrong email or password!"});
+    }
   };
 
 
   return (
     <div className="flex flex-1 flex-col items-end gap-5 es:p-5 p-2">
       <div className="flex w-full flex-1 flex-col es:gap-10 gap-5 items-center justify-center">
-
         {/* HEADER */}
         <div className="lg:hidden flex gap-2 items-center justify-start max-es:justify-center mb-5 es:w-110 w-full">
           <div className="p-2 rounded-md bg-(--orange)"><LibraryBig size={25} /></div>
@@ -85,9 +100,9 @@ export default function AuthContent(){
 
           {/* TITLE */}
           <div className=" flex flex-col gap-2 max-es:items-center">
-            <h3 className="font-semibold text-(--orange-dark) text-xs tracking-wider">{selectedAuth.uptitle}</h3>
-            <h1 className="font-semibold text-3xl">{selectedAuth.title}</h1>
-            <p className="text-(--muted) font-light text-xs">{selectedAuth.sub}</p>
+            <h3 className="font-semibold text-(--orange-dark) text-xs tracking-widest">{selectedAuth.uptitle}</h3>
+            <h1 className="font-extrabold text-3xl">{selectedAuth.title}</h1>
+            <p className="text-(--muted) text-xs">{selectedAuth.sub}</p>
           </div>
 
           <form className="flex flex-col gap-5" onSubmit={handleSubmit(handleAuth)}>
@@ -100,7 +115,7 @@ export default function AuthContent(){
                   id="username"
                   type="text"
                   placeholder="How do we can call you?"
-                  className="bg-(--bg) es:w-110 w-full max-es:w-full p-4  border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
+                  className="bg-transparent es:w-110 w-full max-es:w-full p-4  border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
                   />
 
                   <p>username wrong!</p>
@@ -114,7 +129,7 @@ export default function AuthContent(){
                 id="email"
                 type="email"
                 placeholder="you@example.com"
-                className="bg-(--bg) es:w-110 w-full max-es:w-full p-4 border border-(--border) rounded-md  focus:ring-1 focus:ring-(--orange-dark) outline-none"
+                className="bg-transparent es:w-110 w-full max-es:w-full p-4 border border-(--border) rounded-md  focus:ring-1 focus:ring-(--orange-dark) outline-none"
                 />
 
               { errors.email && <p className="text-red-500 mb-2">{errors.email.message}</p> }
@@ -128,7 +143,7 @@ export default function AuthContent(){
                   id="password"
                   type={passwordEnable ? "text" : "password"}
                   placeholder="Minimumn of 8 characters"
-                  className="bg-(--bg) w-full p-4 pr-10 border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
+                  className="bg-transparent w-full p-4 pr-10 border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
                 />
 
                 <button 
@@ -146,7 +161,7 @@ export default function AuthContent(){
             <button 
               disabled={isLoading}
               type="submit" 
-              className="cursor-pointer hover:bg-(--orange-dark) text-center w-full es;py-4 py-3 bg-(--orange) text-sm rounded-md font-medium"
+              className="cursor-pointer hover:bg-(--orange-dark) text-center w-full es:py-4 py-3 bg-(--orange) text-white text-sm rounded-md font-bold"
               >
               {formState == "login" ? "Login in the community" : "Create my account"}
             </button>

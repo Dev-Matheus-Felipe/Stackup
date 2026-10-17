@@ -1,45 +1,47 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-.light {
+:root {
+  --navy: #242c3c;
+  --orange: #f26430;
+  --orange-dark: #d94c1a;
+  --orange-soft: #fff0e9;
+}
+
+
+[data-theme='light'] {
   color: #25221f;
-  background: #f8f7f5;
+  background: #F1F0ED;
   font-synthesis: none;
-  --bg: #f8f7f5;
   --surface: #ffffff;
   --surface-soft: #f3f1ee;
   --text: #25221f;
-  --muted: #77716b;
-  --border: #e7e3de;
-  --orange: #f26430;
-  --orange-dark: #d94c1a;
-  --orange-soft: #fff0e9;
-  --navy: #e8eaf0;
-
+  --border: #c9c4c0;
+  --muted: black;
+    
   --shadow: 0 8px 30px rgba(44, 35, 28, 0.07);
 
-  --button-bg: var(--orange);
-
+  --button-bg: var(--orange); 
+  --button-hover: #E7E5E1; 
 }
 
-:root {
+
+
+
+[data-theme='dark'] {
   color: #f4f1ec;
   background: #111315;
-  --bg: #111315;
   --surface: #1a1d20;
-  --surface-soft: #22262a;
+  --surface-soft: #22262a; 
   --text: #f4f1ec;
-  --muted: #a6a19b;
   --border: #303438;
+  --muted: #a6a19b;
 
-  --orange: #f26430;
-  --orange-dark: #d94c1a;
-  --orange-soft: #fff0e9;
-  
-  --navy: #242c3c;
+
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.24);
   --button-hover: #303438;
 }
-
 
 @theme {
   --breakpoint-es: 500px;
@@ -49,11 +51,10 @@
   box-sizing: border-box;
 }
 
-
 body {
-  background: var(--surface);
+  background: var(--background);
   color: var(--color);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-
+ 
   box-sizing: border-box;
 }

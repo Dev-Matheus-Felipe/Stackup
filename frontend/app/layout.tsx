@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "next-themes";
 
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -9,9 +14,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-  <html lang="pt-BR">
+  <html lang="pt-BR" className={cn("font-sans", geist.variable)} suppressHydrationWarning>
     <body className="min-h-screen w-full flex">
-      {children}
+        <ThemeProvider>{children}</ThemeProvider>
+      <Toaster />
     </body>
   </html>
   );

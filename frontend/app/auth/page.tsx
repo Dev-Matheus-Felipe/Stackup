@@ -7,7 +7,7 @@ export default async function Auth(){
     <div className="w-full flex flex-1">
 
       {/* BANNER */}
-      <div className="hidden lg:flex bg-(--navy) flex-1 w-1/2 min-h-full relative overflow-hidden items-center lg:px-[9%]">
+      <div className="hidden lg:flex bg-(--navy) flex-1 w-1/2 min-h-full relative overflow-hidden items-center lg:px-[9%] text-white">
 
         {/* CARD */}
         <div className="p-5 pr-20 border flex flex-col gap-3 h-min opacity-[0.3] bg-white/10 rounded-2xl -right-10 absolute top-1/8 rotate-6">
@@ -30,9 +30,9 @@ export default async function Auth(){
           {/* ICON */}
           <div className="max-lg:hidden absolute inset-0 top-20">
             <div className="flex gap-2 items-center justify-start">
-              <div className="p-2 rounded-md bg-(--orange)"><LibraryBig size={25} /></div>
+              <div className="p-2 rounded-md bg-(--orange)"><LibraryBig size={30} /></div>
 
-              <h1 className="font-bold text-2xl">
+              <h1 className="font-bold text-3xl">
                 Stack
                 <span className="text-(--orange-dark)">up</span>
               </h1>
@@ -46,7 +46,9 @@ export default async function Auth(){
             <span className="text-(--orange) font-light"> great answers</span>
           </h1>
 
-          <p className="text-(--muted) text-sm w-80 tracking-wider">Connect with a community that shares, learns, and builds the future of technology.</p>
+          <p className="text-[#a6a19b] text-sm w-80 tracking-wider">
+            Connect with a community that shares, learns, and builds the future of technology.
+          </p>
         </div>
 
       </div>

@@ -12,12 +12,12 @@ export async function authAction({
   data: RegisterSchemaType | LoginSchemaType,
   type: "register" | "login",
 
-}): Promise<string> {
+}): Promise<{ok: boolean, message: string}> {
 
   const validBody = (type == "register" ? RegisterSchema : LoginSchema).safeParse(data);
 
   if(validBody.error) {
-    return "Invalid credentials!";
+    return {ok: false, message: "Invalid credentials!"};
   }
 
   const options = {
@@ -32,5 +32,8 @@ export async function authAction({
     await setToken({token: body.token});
   }
   
-  return body.message ?? "logged successfully.";
+  return {
+    ok: res.ok,
+    message: body.message,
+  };
 }
