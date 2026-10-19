@@ -8,8 +8,8 @@ RUN ./mvnw dependency:copy-dependencies
 RUN ./mvnw clean package -Dmaven.test.skip
 
 RUN mkdir -p /output/etc && \
-    echo "spring:x:1000:1000:Spring User:/sbin/noLogin" > /output/etc/passwd && \
-    echo "spring:1000:1000" > /output/etc/group
+    echo "spring:x:1000:1000:Spring User:/app:/sbin/nologin" > /output/etc/passwd && \
+    echo "spring:x:1000:" > /output/etc/group
 
 FROM eclipse-temurin:21-jre AS deps
 

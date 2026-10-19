@@ -3,11 +3,11 @@
 OPTION=$1
 
 if [[ -z $OPTION ]]; then
-  echo "PLEASE TYPE ANOTHER THING BESIDES BULLSHIT"
+  echo "PLEASE TYPE SOME VALID OPTION"
 
 elif [[ $OPTION == "dev" ]]; then
   docker compose -f compose.yml -f compose.dev.yml up -d
-  echo "INITIATED \nFRONTEND PORT 3000 & BACKEND PORT 8085"
+  echo "INITIATED FRONTEND PORT 3000 & BACKEND PORT 8085"
 
 elif [[ $OPTION == "build" ]]; then
   docker compose -f compose.yml build
@@ -16,5 +16,9 @@ elif [[ $OPTION == "build" ]]; then
 elif [[ $OPTION == "down" ]]; then
   docker compose down
   echo "CONTAINERS DOWN"
+
+elif [[ $OPTION == "prod" ]]; then
+  docker compose up -d
+  echo "SUCESSFULLY INITIATED"
 
 fi

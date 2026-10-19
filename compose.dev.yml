@@ -1,4 +1,7 @@
 services:
+  build:
+    context: .
+    dockerfile: frontend.dev.dockerFile
   stackupfront:
     volumes:
       - ./frontend:/app

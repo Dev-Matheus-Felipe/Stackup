@@ -42,7 +42,7 @@ services:
     container_name: stackupfront
   
     build: 
-      dockerfile: frontend.dev.dockerFile
+      dockerfile: frontend.prod.dockerFile
       context: .
 
     ports:
