@@ -1,10 +1,10 @@
 package com.stackup.backend.service;
 
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,8 @@ public class TagSevice {
 
     public ResponseEntity<?> getTops(Integer amount){
         Pageable pageable = PageRequest.of(0, 5);
-        Set<Tag> topTags = tagRepository.findTopTags(pageable);
+        
+        Slice<Tag> topTags = tagRepository.findTopTags(pageable);
 
         return ResponseEntity.ok().body(Map.of("sucess", true, "data", topTags));
     }

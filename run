@@ -18,7 +18,7 @@ elif [[ $OPTION == "down" ]]; then
   echo "CONTAINERS DOWN"
 
 elif [[ $OPTION == "prod" ]]; then
-  docker compose up -d
+  docker compose -f compose.yml -f compose.prod.yml up -d
   echo "SUCESSFULLY INITIATED"
 
 fi

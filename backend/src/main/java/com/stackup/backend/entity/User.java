@@ -12,12 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter 
 @Setter 
 @Table(name = "users")
 @Entity 
+@NoArgsConstructor 
 public class User {
 
     @Id 
@@ -41,7 +43,7 @@ public class User {
     
     private Date created_at;
     
-    @Column (length = 500, nullable = false)
+    @Column (length = 500)
     private String avatar;
 
     @OneToMany(mappedBy = "user")

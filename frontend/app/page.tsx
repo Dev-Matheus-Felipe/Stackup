@@ -1,18 +1,28 @@
-"use client"
+import { getPartialData } from "@/lib/actions/main";
+import { Suspense } from "react";
 
-import { useTheme } from "next-themes";
-import { toast } from "sonner";
 
 export default function Home() {
-  const {theme, setTheme} = useTheme();
   return (
     <div className="w-full">
-      <button onClick={() => toast.success("clicked it cucessfully")}>
-        asdaddd
-      </button>
-      <button onClick={() => setTheme(prev => prev == "dark" ? "light" : "dark")}>
-        theme
-      </button>
+      <Suspense fallback={<p>LOADING</p>}>
+        <PrivateContent />
+      </Suspense>
     </div>
   );
+}
+
+
+async function PrivateContent(){
+  const [posts, tags] = await Promise.all([
+    getPartialData("/posts/home?amount=10"),
+    getPartialData("/tags/tops?amount=3")
+  ]);
+
+  console.log(posts)
+  console.log(tags)
+
+  return (
+    <div>HELLO</div>
+  )
 }

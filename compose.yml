@@ -15,8 +15,6 @@ services:
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
 
-    networks:
-      - back
 
   stackupapi:
     container_name: stackupapi
@@ -29,15 +27,9 @@ services:
       stackupdb:
         condition: service_healthy
 
-
     env_file:
       - ./backend/.env
       
-    networks:
-      - front
-      - back
-      
-
   stackupfront:
     container_name: stackupfront
   
@@ -45,19 +37,5 @@ services:
       dockerfile: frontend.prod.dockerFile
       context: .
 
-    ports:
-      - "3000:3000"
-
-    networks:
-      - front
-      - back
-    
     depends_on:
       - stackupapi
-
-networks:
-  front: 
-    driver: bridge
-  
-  back:
-    driver: bridge

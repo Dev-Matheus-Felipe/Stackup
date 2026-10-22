@@ -1,8 +1,14 @@
 services:
-  build:
-    context: .
-    dockerfile: frontend.dev.dockerFile
   stackupfront:
+    image: stackup-stackupfront-dev 
+
+    build:
+      dockerfile: frontend.dev.dockerFile
+      context: .
+
+    ports:
+      - "3000:3000"
+
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -11,3 +17,5 @@ services:
   stackupapi:
     ports:
       - "8085:8080"
+
+      

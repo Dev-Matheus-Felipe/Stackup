@@ -17,7 +17,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   <html lang="pt-BR" className={cn("font-sans", geist.variable)} suppressHydrationWarning>
     <body className="min-h-screen w-full flex">
         <ThemeProvider>{children}</ThemeProvider>
-      <Toaster />
+        <Toaster />
     </body>
   </html>
   );

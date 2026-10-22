@@ -1,0 +1,25 @@
+# Overlay de producao. A API NAO entra na rede do proxy reverso: so o front e
+# alcancavel de fora. Mesmo desenho do concursos.
+services:
+  stackupdb:
+    restart: unless-stopped
+    
+    networks:
+      - backend_network
+  stackupapi:
+    restart: unless-stopped
+
+    networks:
+      - backend_network
+  stackupfront:
+    restart: unless-stopped
+    ports:
+      - "10.0.1.107:3000:3000"
+    networks:
+      - reverse-proxy
+      - backend_network
+
+networks:
+  reverse-proxy:
+  backend_network:
+    driver: bridge

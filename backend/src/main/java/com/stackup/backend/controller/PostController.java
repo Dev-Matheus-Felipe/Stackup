@@ -20,8 +20,14 @@ public class PostController {
     }
 
     @GetMapping("/home")
-    public ResponseEntity<?> getHomePosts(@RequestParam  Integer offset) {
-        return postService.getHomePosts(offset);
+    public ResponseEntity<?> getHome(@RequestParam Integer amount, @RequestParam(defaultValue = "0") Integer offset) {
+        return postService.getHomePosts(amount, offset);
     }
+
+    @GetMapping("/tops")
+    public ResponseEntity<?> getTops(@RequestParam Integer amount) {
+        return postService.getTops(amount);
+    }
+    
     
 }

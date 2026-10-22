@@ -34,7 +34,7 @@ ALTER TABLE users
     ADD COLUMN portfolio_url VARCHAR(300),
     ADD COLUMN bio VARCHAR(500),
 
-    ADD COLUMN avatar VARCHAR(500) NOT NULL
+    ADD COLUMN avatar VARCHAR(500)
         DEFAULT floor(random() * 6)::int::text,
 
     ADD CONSTRAINT users_portfolio_url
