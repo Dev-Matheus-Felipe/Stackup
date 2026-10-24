@@ -41,7 +41,8 @@ public class User {
     @Column (length = 500)
     private String bio;
     
-    private Date created_at;
+    @Column (name = "created_at")
+    private Date createdAt;
     
     @Column (length = 500)
     private String avatar;

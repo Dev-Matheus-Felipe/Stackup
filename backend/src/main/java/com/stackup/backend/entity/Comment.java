@@ -23,7 +23,8 @@ public class Comment {
   @GeneratedValue (strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Date created_at;
+  @Column (name = "created_at")
+  private Date createdAt;
   
   private Integer likes;
 
@@ -34,7 +35,7 @@ public class Comment {
   @JoinColumn (name = "author", nullable = false)
   private User author;
 
-  @ManyToOne 
+  @ManyToOne
   @JoinColumn (name = "post_id", nullable = false)
   private Post post;
 }

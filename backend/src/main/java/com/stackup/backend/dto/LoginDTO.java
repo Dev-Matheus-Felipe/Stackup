@@ -1,6 +1,6 @@
 package com.stackup.backend.dto;
 
-public record UserLoginDTO(
+public record LoginDTO(
     String email,
     String password
 ) {}

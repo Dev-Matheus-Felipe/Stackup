@@ -1,5 +1,6 @@
 package com.stackup.backend.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -27,5 +28,5 @@ public class Tag {
     private String name;
 
     @ManyToMany (mappedBy = "tags", fetch = FetchType.LAZY)
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<Post>();
 }

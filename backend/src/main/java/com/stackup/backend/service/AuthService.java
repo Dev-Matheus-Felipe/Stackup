@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.stackup.backend.dto.UserLoginDTO;
-import com.stackup.backend.dto.UserResgisterDTO;
+import com.stackup.backend.dto.LoginDTO;
+import com.stackup.backend.dto.RegisterDTO;
 import com.stackup.backend.entity.User;
 import com.stackup.backend.repository.UserRepository;
 
@@ -24,7 +24,7 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ResponseEntity<?> RegisterUser(UserResgisterDTO user){
+    public ResponseEntity<?> RegisterUser(RegisterDTO user){
         User userDB = userRepository.findByEmail(user.email()).orElse(null);
         
         if(userDB != null){
@@ -49,7 +49,7 @@ public class AuthService {
     }
 
 
-    public ResponseEntity<?> LoginUser(UserLoginDTO user){
+    public ResponseEntity<?> LoginUser(LoginDTO user){
         User userDB = userRepository.findByEmail(user.email()).orElse(null);
 
         if(userDB.equals(null) || !passwordEncoder.matches(user.password(), userDB.getPassword())){

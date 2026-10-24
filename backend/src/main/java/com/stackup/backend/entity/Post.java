@@ -1,6 +1,8 @@
 package com.stackup.backend.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,7 +38,8 @@ public class Post {
 
   private Integer likes;
 
-  private Date created_at;
+  @Column(name = "created_at")
+  private Date createdAt;
 
   @Column (length = 1000)
   private String code;
@@ -46,7 +49,7 @@ public class Post {
   private User user;
 
   @OneToMany(mappedBy = "post")
-  private List<Comment> comments;
+  private List<Comment> comments = new ArrayList<Comment>();
 
   @ManyToMany
   @JoinTable (
@@ -54,6 +57,6 @@ public class Post {
     joinColumns = @JoinColumn(name = "post_id", nullable = false),
     inverseJoinColumns = @JoinColumn (name = "tag_id", nullable = false)
   )
-  private Set<Tag> tags;
+  private Set<Tag> tags = new HashSet<Tag>();
 
 }

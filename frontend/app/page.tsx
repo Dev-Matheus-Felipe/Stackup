@@ -14,13 +14,11 @@ export default function Home() {
 
 
 async function PrivateContent(){
-  const [posts, tags] = await Promise.all([
+  const [posts] = await Promise.all([
     getPartialData("/posts/home?amount=10"),
-    getPartialData("/tags/tops?amount=3")
   ]);
 
   console.log(posts)
-  console.log(tags)
 
   return (
     <div>HELLO</div>
