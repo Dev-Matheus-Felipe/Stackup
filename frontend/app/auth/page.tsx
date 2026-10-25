@@ -1,13 +1,14 @@
 import { LibraryBig } from "lucide-react";
 import AuthContent from "./authContent";
+import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@/components/ui/avatar";
 
-export default async function Auth(){
+export default function Auth(){
 
   return (
-    <div className="w-full flex flex-1">
+    <div className="w-full flex min-h-screen">
 
       {/* BANNER */}
-      <div className="hidden lg:flex bg-(--navy) flex-1 w-1/2 min-h-full relative overflow-hidden items-center lg:px-[9%] text-white">
+      <div className="hidden lg:flex bg-(--navy) h-ull w-4/7  relative overflow-hidden items-center lg:px-[9%] text-white">
 
         {/* CARD */}
         <div className="p-5 pr-20 border flex flex-col gap-3 h-min opacity-[0.3] bg-white/10 rounded-2xl -right-10 absolute top-1/8 rotate-6">
@@ -46,9 +47,37 @@ export default async function Auth(){
             <span className="text-(--orange) font-light"> great answers</span>
           </h1>
 
-          <p className="text-[#a6a19b] text-sm w-80 tracking-wider">
+          <p className="text-[#f7f5f4] text-sm w-80 tracking-wider font-extralight">
             Connect with a community that shares, learns, and builds the future of technology.
           </p>
+
+          <div className="flex items-center mt-3 gap-4">
+            <AvatarGroup>
+              <Avatar>
+                <AvatarImage src="https://avatars.githubusercontent.com/u/161830701?s=400&u=51f9b84793e7836b16320ef8772ae13efc336470&v=4" 
+                alt="@Dev-Matheus-Felipe" />
+                <AvatarFallback>MF</AvatarFallback>
+              </Avatar>
+
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/evilrabbit.png"
+                  alt="@evilrabbit"
+                />
+                <AvatarFallback>ER</AvatarFallback>
+              </Avatar>
+            </AvatarGroup>
+
+            <div className="flex flex-col">
+              <p className="text-xs w-40 font-bold">+ 12,0000 people</p>
+              <p className="text-xs w-40 font-bold text-(--muted)">has joined the community</p>
+            </div>
+          </div>
         </div>
 
       </div>

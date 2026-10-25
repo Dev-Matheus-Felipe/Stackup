@@ -18,9 +18,10 @@ async function PrivateContent(){
     getPartialData("/posts/home?amount=10"),
   ]);
 
-  console.log(posts)
 
   return (
-    <div>HELLO</div>
+    <div className="w-full h-full">
+      asdas
+    </div>
   )
 }

@@ -15,9 +15,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
   <html lang="pt-BR" className={cn("font-sans", geist.variable)} suppressHydrationWarning>
-    <body className="min-h-screen w-full flex">
-        <ThemeProvider>{children}</ThemeProvider>
-        <Toaster />
+    <body className="min-h-screen w-full">
+      <ThemeProvider>
+        {children}
+      </ThemeProvider>
+      <Toaster />
     </body>
   </html>
   );

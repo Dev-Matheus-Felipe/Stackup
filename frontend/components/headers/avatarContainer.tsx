@@ -1,0 +1,168 @@
+"use client"
+
+import { EyeIcon, FolderHeart, House, LayoutIcon, LogOut, LogOutIcon, MonitorIcon, Moon, MoonIcon, PaletteIcon, Plus, Sun, SunIcon, Tag, Trophy, User } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Button } from "../ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+export default function AvatarContainer(){
+  const {theme, setTheme} = useTheme();
+  
+  const ThemeIcon = theme == "light" ? Moon : Sun;
+
+  return (
+    <>
+
+      {/* DESKTOP */}
+      <div className="items-center gap-5 md:flex hidden">
+        <button 
+          className="border border-(--border) h-9.5 w-9.5 flex items-center justify-center rounded-md cursor-pointer hover:border-(--orange-dark) group" 
+          onClick={() => setTheme(prev => prev == "dark" ? "light" : "dark")}
+        >
+          <ThemeIcon size={18} className="group-hover:text-(--orange-dark)" />
+        </button>
+
+        <button className="bg-(--orange) text-white h-9.5 px-3 cursor-pointer hover:bg-(--orange-dark) rounded text-sm flex items-center gap-1">
+          <Plus size={18} />
+          Ask a question
+        </button>
+
+        <Button variant="ghost" size="icon" className="rounded-full cursor-pointer">
+          <Avatar className={"w-9.5 h-9.5"}>
+            <AvatarImage src="https://avatars.githubusercontent.com/u/161830701?s=400&u=51f9b84793e7836b16320ef8772ae13efc336470&v=4" 
+            alt="@Dev-Matheus-Felipe" />
+            <AvatarFallback>MF</AvatarFallback>
+          </Avatar>
+        </Button>
+      </div>
+
+      {/* MOBILE */}
+      <div className="md:hidden items-center flex">
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Avatar className={"es:w-9.5 w-8 es:h-9.5 h-8"}>
+                  <AvatarImage src="https://avatars.githubusercontent.com/u/161830701?s=400&u=51f9b84793e7836b16320ef8772ae13efc336470&v=4" 
+                  alt="@Dev-Matheus-Felipe" />
+                  <AvatarFallback>MF</AvatarFallback>
+                </Avatar>
+              </Button>} 
+            />
+
+          <DropdownMenuContent className="w-40 mt-2 bg-(--surface) ring-(--border)">
+
+            <DropdownMenuGroup className={"gap-2 flex flex-col"}>
+              <DropdownMenuLabel>Navegation</DropdownMenuLabel>
+
+              <DropdownMenuSub>
+                <DropdownMenuCheckboxItem>
+                  <House />
+                  Home
+                </DropdownMenuCheckboxItem>
+
+              </DropdownMenuSub>
+              
+              <DropdownMenuCheckboxItem>
+                <FolderHeart />
+                Collections
+              </DropdownMenuCheckboxItem>
+
+              <DropdownMenuCheckboxItem>
+                <Tag />
+                Tags
+              </DropdownMenuCheckboxItem>
+
+
+              <DropdownMenuCheckboxItem>
+                <Plus />
+                Ask a question
+              </DropdownMenuCheckboxItem>
+
+              <DropdownMenuCheckboxItem>
+                <Trophy />
+                Ranks
+              </DropdownMenuCheckboxItem>
+            </DropdownMenuGroup>
+
+            
+
+            <DropdownMenuSeparator className={"bg-(--border)"} />
+
+            <DropdownMenuGroup className={"gap-2 flex flex-col"}>
+              <DropdownMenuLabel>Preferences</DropdownMenuLabel>
+
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <PaletteIcon />
+                  Theme
+                </DropdownMenuSubTrigger>
+
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent sideOffset={20} className={"ring-(--border) bg-(--surface)"}>
+                    <DropdownMenuGroup className={"gap-2 flex flex-col"}>
+                      <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+                      <DropdownMenuRadioGroup
+                        value={theme}
+                        onValueChange={setTheme}
+                      >
+                        <DropdownMenuRadioItem value="light">
+                          <SunIcon />
+                          Light
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="dark">
+                          <MoonIcon />
+                          Dark
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="system">
+                          <MonitorIcon />
+                          System
+                        </DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuGroup>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              
+              <DropdownMenuCheckboxItem>
+                <User />
+                Profile
+              </DropdownMenuCheckboxItem>
+
+              <DropdownMenuSeparator className={"bg-(--border)"} />
+
+                <DropdownMenuGroup>
+                  <DropdownMenuItem className={`${theme == "dark" ? "text-red-500" : "text-red-700"}`}>
+                    <LogOutIcon />
+                    Sign Out
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+
+            </DropdownMenuGroup>
+            
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+      </div>
+    </>
+  )
+}

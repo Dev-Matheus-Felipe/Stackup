@@ -30,8 +30,9 @@ const authMethods: Record<FormStateType["type"], FormStateType> = {
     uptitle: "CREATE A NEW ACCOUNT",
     title: "Log in to your account",
     sub: "Continue where you stopped and look at it's new.",
-    text: "Doesn't have an account yet?",
-    span: "Sin up"
+
+    text: "Already have an account?",
+    span: "Log in"
   },
   
   login: {
@@ -41,8 +42,8 @@ const authMethods: Record<FormStateType["type"], FormStateType> = {
     uptitle: "WELCOME BACK",
     title: "Start your jorney",
     sub: "Join to the community in a few seconds.",
-    text: "Already have an account?",
-    span: "Log in"
+    text: "Doesn't have an account yet?",
+    span: "Sin up"
   },
 };
 
@@ -96,7 +97,7 @@ export default function AuthContent(){
         </div>
 
         {/* FORM */}
-        <div className="flex flex-col es:gap-10 gap-5 max-es:w-full">
+        <div className="flex flex-col gap-5 max-es:w-full">
 
           {/* TITLE */}
           <div className=" flex flex-col gap-2 max-es:items-center">
@@ -115,8 +116,9 @@ export default function AuthContent(){
                   id="username"
                   type="text"
                   placeholder="How do we can call you?"
-                  className="bg-transparent es:w-110 w-full max-es:w-full p-4  border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
-                  />
+                  className={`bg-transparent es:w-110 w-full max-es:w-full p-4  border border-(--border) rounded-md 
+                  outline-none focus:ring-1 focus:ring-(--orange-dark) `}
+                 />
 
                   <p>username wrong!</p>
               </div>
@@ -129,8 +131,9 @@ export default function AuthContent(){
                 id="email"
                 type="email"
                 placeholder="you@example.com"
-                className="bg-transparent es:w-110 w-full max-es:w-full p-4 border border-(--border) rounded-md  focus:ring-1 focus:ring-(--orange-dark) outline-none"
-                />
+                className={`bg-transparent es:w-110 w-full max-es:w-full p-4  border border-(--border) rounded-md 
+                outline-none focus:ring-1 focus:ring-(--orange-dark)`}
+              />
 
               { errors.email && <p className="text-red-500 mb-2">{errors.email.message}</p> }
             </div>
@@ -143,7 +146,8 @@ export default function AuthContent(){
                   id="password"
                   type={passwordEnable ? "text" : "password"}
                   placeholder="Minimumn of 8 characters"
-                  className="bg-transparent w-full p-4 pr-10 border border-(--border) rounded-md focus:ring-1 focus:ring-(--orange-dark) outline-none"
+                  className={`bg-transparent es:w-110 w-full max-es:w-full p-4  border border-(--border) rounded-md 
+                  outline-none focus:ring-1 focus:ring-(--orange-dark) `}
                 />
 
                 <button 
@@ -161,8 +165,9 @@ export default function AuthContent(){
             <button 
               disabled={isLoading}
               type="submit" 
-              className="cursor-pointer hover:bg-(--orange-dark) text-center w-full es:py-4 py-3 bg-(--orange) text-white text-sm rounded-md font-bold"
-              >
+              className={`cursor-pointer hover:bg-(--orange-dark) text-center w-full es:py-4 py-3 bg-(--orange) text-white text-sm 
+              rounded-md font-bold`}
+            >
               {formState == "login" ? "Login in the community" : "Create my account"}
             </button>
 
