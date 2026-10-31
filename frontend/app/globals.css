@@ -7,28 +7,27 @@
   --orange: #f26430;
   --orange-dark: #d94c1a;
   --orange-soft: #fff0e9;
-}
-
-
+} 
+  
 [data-theme='light'] {
   color: #25221f;
-  background: #F1F0ED;
-  font-synthesis: none;
+  background: #f5f4f4;
+  font-synthesis: none;  
   --surface: #ffffff;
   --surface-soft: #f3f1ee;
   --text: #25221f;
   --border: #c9c4c0;
-  --muted: black;
+  --muted: black; 
+  --navbar-color: black; 
     
   --shadow: 0 8px 30px rgba(44, 35, 28, 0.07);
 
   --button-bg: var(--orange); 
   --button-hover: #E7E5E1; 
-}
-
-
-
-
+  --loading-color: #e2e0dc;
+  --banner: #e2e6f1;   
+}  
+        
 [data-theme='dark'] {
   color: #f4f1ec;
   background: #111315;
@@ -37,11 +36,13 @@
   --text: #f4f1ec;
   --border: #303438;
   --muted: #a6a19b;
-
+  --navbar-color: #ff6900;
 
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.24);
   --button-hover: #303438;
-}
+  --loading-color: #30363B; 
+  --banner: #292D37;
+} 
 
 @theme {
   --breakpoint-es: 500px;

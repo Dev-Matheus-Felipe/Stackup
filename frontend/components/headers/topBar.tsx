@@ -1,12 +1,16 @@
 import { LibraryBig, Search} from "lucide-react"
 import AvatarContainer from "./avatarContainer";
+import { getUserIconColor } from "@/lib/general";
+import { Suspense } from "react";
+import { getTokenData } from "@/lib/token";
+import HomeAvatarLoading from "../loadings/home/avatar";
 
 export default function TopBar(){
   
   return (
     <div 
-      className={`col-span-2 row-span-1 h-18 bg-(--surface) flex justify-between items-center es:gap-10 gap-3 md:px-8 
-      px-4 py-2 border border-(--border)`}
+      className={`col-span-2 row-span-1 h-19 bg-(--surface) flex justify-between items-center es:gap-10 gap-3 md:px-8 
+      px-4 py-2 border-b border-(--border)`}
     >
 
       {/* LEFT SIDE */}
@@ -25,7 +29,7 @@ export default function TopBar(){
 
         </div>
 
-        <div className="max-w-150 w-full h-9.5 relative border border-(--border) rounded-lg  overflow-hidden">
+        <div className="max-w-150 w-full es:h-11 h-9 relative border border-(--border) rounded-md  overflow-hidden">
           <input 
             className="w-full h-full pl-11 pr-5 text-xs outline-0 bg-(--surface-soft)"
             type="text" 
@@ -41,7 +45,22 @@ export default function TopBar(){
 
 
       {/* RIGHT SIDE */}
-      <AvatarContainer />
+      <Suspense fallback={<HomeAvatarLoading />}>
+        <PrivateContent />
+      </Suspense>
     </div>
+  );
+}
+
+async function PrivateContent(){
+  const data = await getTokenData();
+
+  const avatar = data.avatar.startsWith("https://") 
+    ? data.avatar
+    : getUserIconColor({number: data.avatar});
+  //await new Promise(p => setTimeout(p, 3000));
+
+  return (
+    <AvatarContainer avatar={avatar} userName={data.username} />
   );
 }

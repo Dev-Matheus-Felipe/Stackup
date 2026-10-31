@@ -1,6 +1,9 @@
 "server-only"
 
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { MyToken } from "./types/token";
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -20,4 +23,13 @@ export async function setToken({token} : {token: string}) {
 		maxAge: 3600 * 8,
 		path: "/"
 	});
+}
+
+
+export async function getTokenData(): Promise<MyToken> {
+	const token = await getToken();
+
+	if(token == null) redirect("/auth");
+	  
+	return jwtDecode(token);
 }

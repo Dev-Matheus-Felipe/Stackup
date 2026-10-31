@@ -18,11 +18,13 @@ public class TokenService {
         this.jwtEncoder = jwtEncoder;
     }
 
-    public String createToken(String userEmail){
+    public String createToken(String userEmail, String userImage, String username){
         Instant now = Instant.now();
 
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
             .claim("email", userEmail)
+            .claim("avatar", userImage)
+            .claim("username", username)
             .issuer("stackup")
             .issuedAt(now)
             .expiresAt(now.plusSeconds(3600 * 8))

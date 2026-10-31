@@ -1,6 +1,6 @@
 "use client"
 
-import { EyeIcon, FolderHeart, House, LayoutIcon, LogOut, LogOutIcon, MonitorIcon, Moon, MoonIcon, PaletteIcon, Plus, Sun, SunIcon, Tag, Trophy, User } from "lucide-react";
+import { FolderHeart, House, LogOutIcon, MonitorIcon, Moon, MoonIcon, PaletteIcon, Plus, Sun, SunIcon, Tag, Trophy, User } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -22,9 +22,17 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useEffect, useState } from "react";
 
-export default function AvatarContainer(){
+export default function AvatarContainer({avatar, userName} : {avatar: string, userName: string}){
+  const [mounted, setMounted] = useState(false);
   const {theme, setTheme} = useTheme();
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return null;
+  }
   
   const ThemeIcon = theme == "light" ? Moon : Sun;
 
@@ -46,10 +54,17 @@ export default function AvatarContainer(){
         </button>
 
         <Button variant="ghost" size="icon" className="rounded-full cursor-pointer">
-          <Avatar className={"w-9.5 h-9.5"}>
-            <AvatarImage src="https://avatars.githubusercontent.com/u/161830701?s=400&u=51f9b84793e7836b16320ef8772ae13efc336470&v=4" 
-            alt="@Dev-Matheus-Felipe" />
-            <AvatarFallback>MF</AvatarFallback>
+          <Avatar className={"w-11 h-11"}>
+            { avatar.startsWith("https://") &&
+               <AvatarImage
+                  src={avatar} 
+                  alt={userName} 
+                />
+            }
+
+            <AvatarFallback className={!avatar.startsWith("https://")  ? avatar : ""}>
+              {userName.split("-")[0][0]  + userName.split("-")[1][0]}
+            </AvatarFallback>
           </Avatar>
         </Button>
       </div>
@@ -61,9 +76,16 @@ export default function AvatarContainer(){
             render={
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Avatar className={"es:w-9.5 w-8 es:h-9.5 h-8"}>
-                  <AvatarImage src="https://avatars.githubusercontent.com/u/161830701?s=400&u=51f9b84793e7836b16320ef8772ae13efc336470&v=4" 
-                  alt="@Dev-Matheus-Felipe" />
-                  <AvatarFallback>MF</AvatarFallback>
+                 { avatar.startsWith("https://") &&
+                    <AvatarImage
+                        src={avatar} 
+                        alt={userName} 
+                      />
+                  }
+
+                  <AvatarFallback className={!avatar.startsWith("https://")  ? avatar : ""}>
+                    {userName.split("-")[0][0] + userName.split("-")[1][0]}
+                  </AvatarFallback>
                 </Avatar>
               </Button>} 
             />
@@ -71,7 +93,7 @@ export default function AvatarContainer(){
           <DropdownMenuContent className="w-40 mt-2 bg-(--surface) ring-(--border)">
 
             <DropdownMenuGroup className={"gap-2 flex flex-col"}>
-              <DropdownMenuLabel>Navegation</DropdownMenuLabel>
+              <DropdownMenuLabel className={"text-(--muted)"}>Navegation</DropdownMenuLabel>
 
               <DropdownMenuSub>
                 <DropdownMenuCheckboxItem>
@@ -103,12 +125,10 @@ export default function AvatarContainer(){
               </DropdownMenuCheckboxItem>
             </DropdownMenuGroup>
 
-            
-
             <DropdownMenuSeparator className={"bg-(--border)"} />
 
             <DropdownMenuGroup className={"gap-2 flex flex-col"}>
-              <DropdownMenuLabel>Preferences</DropdownMenuLabel>
+              <DropdownMenuLabel className={"text-(--muted)"}>Preferences</DropdownMenuLabel>
 
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
@@ -119,7 +139,7 @@ export default function AvatarContainer(){
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent sideOffset={20} className={"ring-(--border) bg-(--surface)"}>
                     <DropdownMenuGroup className={"gap-2 flex flex-col"}>
-                      <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+                      <DropdownMenuLabel className={"text-(--muted)"}>Appearance</DropdownMenuLabel>
                       <DropdownMenuRadioGroup
                         value={theme}
                         onValueChange={setTheme}
@@ -150,7 +170,7 @@ export default function AvatarContainer(){
               <DropdownMenuSeparator className={"bg-(--border)"} />
 
                 <DropdownMenuGroup>
-                  <DropdownMenuItem className={`${theme == "dark" ? "text-red-500" : "text-red-700"}`}>
+                  <DropdownMenuItem className={"text-red-600"}>
                     <LogOutIcon />
                     Sign Out
                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

@@ -5,9 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { authAction } from "@/lib/actions/auth";
 import { useForm } from "react-hook-form";
 import { useState } from "react"
-import { Eye, EyeOff, LibraryBig } from "lucide-react";
+import { Eye, EyeOff, LibraryBig, LoaderIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
+import { cn } from "cn";
 
 // MANAGE AUTH METHODS DYNAMICLY INSTEAD OF CREATING ONE FOR EACH OF THEM
 
@@ -68,17 +70,17 @@ export default function AuthContent(){
 
 
   const handleAuth = async (data: LoginSchemaType | RegisterSchemaType) => {
-    toast("loging in...");
+    const loading = toast.loading("Logging in...");
 
     const res = await authAction({data, type: selectedAuth.type});
 
     if(res.ok){
-      toast.success(res.message);
+      toast.success(res.message, {id: loading});
       redirect("/");
     }
 
     else {
-      toast.error(res.message);
+      toast.error(res.message, {id: loading});
       setError("email", {type: "validate", message: "Wrong email or password!"});
     }
   };
@@ -166,9 +168,14 @@ export default function AuthContent(){
               disabled={isLoading}
               type="submit" 
               className={`cursor-pointer hover:bg-(--orange-dark) text-center w-full es:py-4 py-3 bg-(--orange) text-white text-sm 
-              rounded-md font-bold`}
+              rounded-md font-bold flex items-center gap-2 justify-center`}
             >
+              { isLoading && <LoaderIcon role="status" aria-label="Loading" className={cn("size-4 animate-spin")}/> }
+
               {formState == "login" ? "Login in the community" : "Create my account"}
+              
+              {isLoading && "..."}
+
             </button>
 
 
