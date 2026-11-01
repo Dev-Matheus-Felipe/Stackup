@@ -3,7 +3,7 @@
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { MyToken } from "./types/token";
+import { MyToken } from "../types/token";
 
 const NODE_ENV = process.env.NODE_ENV;
 

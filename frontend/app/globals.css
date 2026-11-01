@@ -6,27 +6,41 @@
   --navy: #242c3c;
   --orange: #f26430;
   --orange-dark: #d94c1a;
-  --orange-soft: #fff0e9;
-} 
-  
-[data-theme='light'] {
-  color: #25221f;
-  background: #f5f4f4;
-  font-synthesis: none;  
-  --surface: #ffffff;
-  --surface-soft: #f3f1ee;
-  --text: #25221f;
-  --border: #c9c4c0;
-  --muted: black; 
-  --navbar-color: black; 
-    
-  --shadow: 0 8px 30px rgba(44, 35, 28, 0.07);
-
-  --button-bg: var(--orange); 
-  --button-hover: #E7E5E1; 
-  --loading-color: #e2e0dc;
-  --banner: #e2e6f1;   
+  --orange-soft: #fae4da;
 }  
+    
+
+[data-theme='light'] {
+  color: #292d35;
+  background: #f5f6f8;
+  font-synthesis: none;
+
+  /* Superfícies */
+  --background: #f5f6f8;
+  --surface: #ffffff;
+  --surface-soft: #f0f1f3;
+
+  /* Tipografia */
+  --text: #292d35;
+  --muted: #858b96;
+  --navbar-color: #353b46;
+
+  /* Bordas */
+  --border: #e5e7eb;
+
+  /* Sombras */
+  --shadow: 0 4px 20px rgba(35, 43, 56, 0.045);
+
+  /* Botões */
+  --button-bg: #f26430;
+  --button-hover: #e9ebef; 
+
+  /* Estados */
+  --loading-color: #e8eaee;
+  --banner: #e4e8f0;
+  --scroll: #8e8f92;
+}
+      
         
 [data-theme='dark'] {
   color: #f4f1ec;
@@ -42,6 +56,7 @@
   --button-hover: #303438;
   --loading-color: #30363B; 
   --banner: #292D37;
+  --scroll: #292D37;
 } 
 
 @theme {
@@ -59,3 +74,39 @@ body {
  
   box-sizing: border-box;
 }
+
+ 
+/* SCROLLBAR (Chrome, Edge, Safari) */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scroll); 
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scroll-thumb-hover, rgba(0, 0, 0, 0.5));
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* SCROLLBAR (Firefox) */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll) transparent;
+  }
+}  

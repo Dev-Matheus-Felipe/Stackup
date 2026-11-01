@@ -18,11 +18,11 @@ export default function TopBar(){
 
         <div className="flex gap-2 items-center justify-start">
 
-          <div className="max-es:hidden p-2 rounded-md bg-(--orange)">
+          <div className=" p-2 rounded-md bg-(--orange)">
             <LibraryBig size={18} />
           </div>
 
-          <h1 className="font-bold es:text-2xl text-lg">
+          <h1 className="font-bold es:text-2xl text-lg max-es:hidden">
             Stack
             <span className="text-(--orange-dark)">up</span>
           </h1>

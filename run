@@ -6,7 +6,7 @@ if [[ -z $OPTION ]]; then
   echo "PLEASE TYPE SOME VALID OPTION"
 
 elif [[ $OPTION == "dev" ]]; then
-  docker compose -f compose.yml -f compose.dev.yml up -d
+  docker compose -f compose.yml -f compose.dev.yml up -d --build
   echo "INITIATED FRONTEND PORT 3000 & BACKEND PORT 8085"
 
 elif [[ $OPTION == "build" ]]; then

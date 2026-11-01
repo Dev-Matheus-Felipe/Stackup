@@ -1,15 +1,13 @@
 package com.stackup.backend.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
-import com.stackup.backend.dto.TagDTO;
-import com.stackup.backend.entity.Tag;
+import com.stackup.backend.interfaces.TagCount;
 import com.stackup.backend.repository.TagRepository;
 
 @Service 
@@ -20,11 +18,11 @@ public class TagSevice {
         this.tagRepository = tagRepository;
     }
 
-    public List<TagDTO> getTops(Integer amount){
-        Pageable pageable = PageRequest.of(0, 5);
+    public List<TagCount> getTops(Integer amount){
+        Pageable pageable = PageRequest.of(0, amount);
         
-        Slice<Tag> topTags = tagRepository.findTopTags(pageable);
+        Slice<TagCount> topTags = tagRepository.findTopTags(pageable);
 
-        return topTags.stream().map(TagDTO::from).collect(Collectors.toList());
+        return topTags.getContent();
     }
 }

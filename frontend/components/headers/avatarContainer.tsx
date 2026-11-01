@@ -54,11 +54,12 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
         </button>
 
         <Button variant="ghost" size="icon" className="rounded-full cursor-pointer">
-          <Avatar className={"w-11 h-11"}>
+          <Avatar className={"w-11 h-11 hover:opacity-60"}>
             { avatar.startsWith("https://") &&
                <AvatarImage
                   src={avatar} 
                   alt={userName} 
+                  
                 />
             }
 

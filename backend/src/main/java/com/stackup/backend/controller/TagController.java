@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stackup.backend.dto.TagDTO;
+import com.stackup.backend.interfaces.TagCount;
 import com.stackup.backend.service.TagSevice;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class TagController {
 
     @GetMapping("/tops")
     public ResponseEntity<?> getTopTags(@RequestParam Integer amount) {
-        List<TagDTO> topTags = tagSevice.getTops(amount);
+        List<TagCount> topTags = tagSevice.getTops(amount);
 
         return ResponseEntity.ok().body(Map.of("sucess", true, "data", topTags)); 
     }
