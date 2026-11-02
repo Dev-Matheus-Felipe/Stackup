@@ -64,7 +64,7 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
             }
 
             <AvatarFallback className={!avatar.startsWith("https://")  ? avatar : ""}>
-              {userName.split("-")[0][0]  + userName.split("-")[1][0]}
+              {userName.split("-")[0][0]  + (userName.split("-")[1]?.[0] ?? "")}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -85,7 +85,7 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
                   }
 
                   <AvatarFallback className={!avatar.startsWith("https://")  ? avatar : ""}>
-                    {userName.split("-")[0][0] + userName.split("-")[1][0]}
+                    {userName.split("-")[0][0] + (userName.split("-")[1]?.[0] ?? "")}
                   </AvatarFallback>
                 </Avatar>
               </Button>} 

@@ -5,19 +5,20 @@ import HomeTopQuestions from "../../components/home/topQuestions";
 import { Flame } from "lucide-react";
 import TopTags from "../../components/home/topTags";
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@/components/ui/avatar";
-import { getPartialData } from "@/lib/actions/main";
 import PrivateContent from "@/components/home/privateContent";
-import { Post } from "@/types/posts";
 import HomeTopQuestionsLoading from "@/components/loadings/home/topQuestions";
 import HomeTopTagsLoading from "@/components/loadings/home/topTags";
 
 export default function Home() {
   return (
-    <div className="w-full h-full flex gap-5">
-      <div className="flex-1  flex flex-col es:gap-10 gap-5">
+    <div className="w-full h-full flex gap-5 min-w-0">
+      <div className="flex-1  flex flex-col es:gap-10 gap-5 min-w-0">
 
         {/* BANNER */}
-        <div className="w-full bg-(--banner) es:h-50 max-es:py-10 shrink-0 rounded-2xl flex justify-center items-start sm:pl-10 p-5 flex-col relative">
+        <div 
+          className={`w-full bg-(--banner) min-w-0 es:h-50 max-es:py-10 shrink-0 rounded-2xl flex justify-center 
+          items-start sm:pl-10 p-5 flex-col relative`}
+        >
           
           <Suspense fallback={<HomeBannerLoading/>}>
             <BannerWapper />
@@ -36,9 +37,18 @@ export default function Home() {
         </div>
 
         {/* POSTS */}
-        <Suspense fallback={<p>LOADING</p>}>
-          <MainContent />
-        </Suspense>
+        <div className="flex-1 min-h-0 overflow-y-auto p-2 pb-0 flex flex-col gap-7 min-w-0">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              <h1 className="text-lg">Top Questions</h1>
+              <p className="text-(--muted) es:text-sm text-xs">Most recent questions asked by the community</p>
+            </div>
+
+            <h2 className="bg-(--surface) px-5 py-1.5 rounded border border-(--border) text-(--muted)">Recent</h2>
+          </div>
+
+          <PrivateContent  />
+        </div>
 
       </div>
 
@@ -73,7 +83,7 @@ export default function Home() {
         </div>
 
         {/* COMMUNITY */}
-        <div className="bg-(--banner) w-full rounded-lg h-45 flex flex-col justify-center pl-7 gap-4">
+        <div className="bg-(--soft-blue) w-full rounded-lg h-45 flex flex-col justify-center pl-7 gap-4">
           <div className="flex items-center gap-3">
             <AvatarGroup >
               <Avatar className={"w-7 h-7"}>
@@ -128,21 +138,11 @@ async function BannerWapper(){
     <div className="z-10">
       <p className="text-(--orange) sm:pb-3 pb-2 font-bold tracking-wider">A community for those who build.</p>
         
-      <h1 className="lg:text-3xl text-lg font-bold">Hello <span className="text-(--orange)">{name}</span>, What will we do today?</h1>
+      <h1 className="lg:text-3xl text-2xl font-bold">
+        <span className="max-es:hidden">Hello <span className="text-(--orange)">{name}</span>,</span>
+        What will we do today?
+      </h1>
       <h2 className="lg:text-sm text-xs text-(--color)/10">Find people, get answers, share knowledge, and grow with the community.</h2>
-    </div>
-  );
-}
-
-
-async function MainContent(){
-  const posts = await getPartialData<Post[]>("/posts/home?amount=10");
-  
-  return (
-    <div className="flex-1 min-h-0 overflow-y-auto p-2 flex flex-col">
-      <h1 className="text-lg">Top Questions</h1>
-
-      <PrivateContent posts={posts.data} />
     </div>
   );
 }
