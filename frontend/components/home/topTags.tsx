@@ -1,8 +1,11 @@
-import { getPartialData } from "@/lib/actions/main";
+import { getData } from "@/lib/actions/main";
 import { TopTag } from "@/types/tags";
 
 export default async function TopTags(){
-  const topTags = await getPartialData<TopTag[]>("/tags/tops?amount=5");
+  const topTags = await getData<TopTag[]>({
+    cache: {tag: "topPosts", time: "hours"},
+    endpoint: "/tags/tops?amount=5", 
+  });
 
   return (
     <div className="flex-1 flex flex-col gap-2 justify-around mt-2">

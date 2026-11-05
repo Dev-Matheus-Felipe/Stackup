@@ -1,13 +1,15 @@
 package com.stackup.backend.dto;
 
 import java.sql.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.stackup.backend.entity.Comment;
 
 public record CommentDTO(
     Long id,
-    Date created_at,
-    Integer likes,
+    Date createdAt,
+    Set<UserDTO> likedBy,
     String body,
     UserDTO author
 ) {
@@ -16,7 +18,7 @@ public record CommentDTO(
         return new CommentDTO(
             c.getId(), 
             c.getCreatedAt(), 
-            c.getLikes(), 
+            c.getLikedBy().stream().map(UserDTO::from).collect(Collectors.toSet()),
             c.getBody(), 
 
             new UserDTO(

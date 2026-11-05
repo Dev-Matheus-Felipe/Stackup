@@ -4,6 +4,6 @@ export interface User {
   email: string,
   portfolio_url: string,
   bio: string,
-  created_at: Date,
+  createdAt: Date,
   avatar: string
 }

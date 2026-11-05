@@ -45,8 +45,8 @@ public class Post {
   private String code;
 
   @ManyToOne
-  @JoinColumn (name = "user_id", nullable = false)
-  private User user;
+  @JoinColumn (name = "author", nullable = false)
+  private User author;
 
   @OneToMany(mappedBy = "post")
   private List<Comment> comments = new ArrayList<Comment>();
@@ -58,5 +58,13 @@ public class Post {
     inverseJoinColumns = @JoinColumn (name = "tag_id", nullable = false)
   )
   private Set<Tag> tags = new HashSet<Tag>();
+
+  @ManyToMany
+  @JoinTable (
+    name = "posts_likes",
+    joinColumns = @JoinColumn (name = "post_id", nullable = false),
+    inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false)
+  )
+  private Set<User> likedBy = new HashSet<User>();
 
 }

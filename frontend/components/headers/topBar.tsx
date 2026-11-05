@@ -58,7 +58,6 @@ async function PrivateContent(){
   const avatar = data.avatar.startsWith("https://") 
     ? data.avatar
     : getUserIconColor({number: data.avatar});
-  //await new Promise(p => setTimeout(p, 3000));
 
   return (
     <AvatarContainer avatar={avatar} userName={data.username} />

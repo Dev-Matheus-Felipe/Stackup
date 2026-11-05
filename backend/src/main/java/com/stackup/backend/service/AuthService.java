@@ -35,7 +35,7 @@ public class AuthService {
 
         try {
             User newUser = userRepository.save( new User(user.username(), user.email(), encryptedPassword) );
-            String token = tokenService.createToken(newUser.getEmail(), newUser.getAvatar(), newUser.getUsername());
+            String token = tokenService.createToken(newUser);
 
             return ResponseEntity.ok().body(Map.of("sucess", true, "token", token, "message", "created sucessfully."));
 
@@ -56,7 +56,7 @@ public class AuthService {
             return ResponseEntity.badRequest().body(Map.of("sucess", false, "message", "Invalid credentials!"));
         }
 
-        String token = tokenService.createToken(userDB.getEmail(), userDB.getAvatar(), userDB.getUsername());
+        String token = tokenService.createToken(userDB);
 
         return ResponseEntity.ok().body(Map.of("sucess", true, "token", token, "message", "logged sucessfully."));
     }

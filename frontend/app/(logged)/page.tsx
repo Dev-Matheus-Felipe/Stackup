@@ -126,7 +126,7 @@ export default function Home() {
 
 // MAIN BANNER
 
-async function BannerWapper(){
+async function BannerWapper(){  
   const data = await getTokenData();
 
   const firstName = data.username.split("-")[0];

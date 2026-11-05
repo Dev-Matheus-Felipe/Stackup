@@ -9,6 +9,8 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.stackup.backend.entity.User;
+
 @Service 
 public class TokenService {
 
@@ -18,13 +20,13 @@ public class TokenService {
         this.jwtEncoder = jwtEncoder;
     }
 
-    public String createToken(String userEmail, String userImage, String username){
+    public String createToken(User user){
         Instant now = Instant.now();
 
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
-            .claim("email", userEmail)
-            .claim("avatar", userImage)
-            .claim("username", username)
+            .subject(user.getId().toString())
+            .claim("avatar", user.getAvatar())
+            .claim("username", user.getUsername())
             .issuer("stackup")
             .issuedAt(now)
             .expiresAt(now.plusSeconds(3600 * 8))

@@ -1,7 +1,7 @@
 "use client"
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getPartialData } from "@/lib/actions/main";
+import { getData } from "@/lib/actions/main";
 import { Post } from "@/types/posts";
 import HomePost from "./post";
 import { Skeleton } from "../ui/skeleton";
@@ -19,8 +19,10 @@ export default function PrivateContent(){
 
   } = useInfiniteQuery({
     queryKey: ['posts'],
-    queryFn: ({pageParam}) => getPartialData<Post[]>(`/posts/some?amount=10&offset=${pageParam}`), 
+    queryFn: ({pageParam}) => getData<Post[]>({endpoint: `/posts/some?amount=10&offset=${pageParam}`}), 
     initialPageParam: 0,
+
+    staleTime: 1000 * 60 * 10,
     getNextPageParam: (lastPage, pages) => lastPage.hasNext ? pages.length : undefined,
   });
 

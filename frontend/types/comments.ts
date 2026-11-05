@@ -3,7 +3,7 @@ import { User } from "./users";
 export interface Commment {
   id: string,
   created_at: Date,
-  likes: number,
+  likedBy: User[],
   body: string,
   author: User
 }

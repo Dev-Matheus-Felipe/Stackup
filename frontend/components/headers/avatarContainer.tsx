@@ -22,7 +22,9 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function AvatarContainer({avatar, userName} : {avatar: string, userName: string}){
   const [mounted, setMounted] = useState(false);
@@ -30,7 +32,7 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) {
+  if (!mounted){
     return null;
   }
   
@@ -53,7 +55,7 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
           Ask a question
         </button>
 
-        <Button variant="ghost" size="icon" className="rounded-full cursor-pointer">
+        <Link className="rounded-full cursor-pointer" href={"/profile"}>
           <Avatar className={"w-11 h-11 hover:opacity-60"}>
             { avatar.startsWith("https://") &&
                <AvatarImage
@@ -67,7 +69,7 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
               {userName.split("-")[0][0]  + (userName.split("-")[1]?.[0] ?? "")}
             </AvatarFallback>
           </Avatar>
-        </Button>
+        </Link>
       </div>
 
       {/* MOBILE */}
@@ -163,10 +165,12 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
                 </DropdownMenuPortal>
               </DropdownMenuSub>
               
-              <DropdownMenuCheckboxItem>
-                <User />
-                Profile
-              </DropdownMenuCheckboxItem>
+                <Link href={"/profile"}>
+                  <DropdownMenuCheckboxItem>
+                      <User />
+                      Profile
+                  </DropdownMenuCheckboxItem>
+                </Link>
 
               <DropdownMenuSeparator className={"bg-(--border)"} />
 

@@ -12,14 +12,14 @@ public record PostDTO(
     Long id,
     String title,
     String body,
-    Integer likes,
     Date createdAt,
     
     String code,
     UserDTO user,
     
     Set<String> tags,
-    List<CommentDTO> comments
+    List<CommentDTO> comments,
+    Set<UserDTO> likedBy
 ){
 
     public static PostDTO noComments(Post p){
@@ -35,23 +35,22 @@ public record PostDTO(
             p.getId(),
             p.getTitle(),
             p.getBody(),
-            p.getLikes(),
             p.getCreatedAt(),
             p.getCode(),
 
             new UserDTO(
-                p.getUser().getId(), 
-                p.getUser().getUsername(),
-                p.getUser().getEmail(),
-                p.getUser().getPortfolio_url(),
-                p.getUser().getBio(),
-                p.getUser().getCreatedAt(),
-                p.getUser().getAvatar()
+                p.getAuthor().getId(), 
+                p.getAuthor().getUsername(),
+                p.getAuthor().getEmail(),
+                p.getAuthor().getPortfolio_url(),
+                p.getAuthor().getBio(),
+                p.getAuthor().getCreatedAt(),
+                p.getAuthor().getAvatar()
             ),
 
             p.getTags().stream().map(Tag::getName).collect(Collectors.toSet()),
-            withComments ? p.getComments().stream().map(CommentDTO::from).collect(Collectors.toList()) : null
-
+            withComments ? p.getComments().stream().map(CommentDTO::from).collect(Collectors.toList()) : null,
+            p.getLikedBy().stream().map(UserDTO::from).collect(Collectors.toSet())
         );
     }
 }

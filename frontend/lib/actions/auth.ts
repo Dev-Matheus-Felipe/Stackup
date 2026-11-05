@@ -25,7 +25,7 @@ export async function authAction({
     body: JSON.stringify(validBody.data),
   };
 
-  const res = await apiFetch<{message: string, token?: string}>({endpoint: `/auth/${type}`, options});
+  const res = await apiFetch<{message: string, token?: string}>({endpoint: `/auth/${type}`, options, token: null});
   const body = await res.json();
   
   if(res.ok && body.token){

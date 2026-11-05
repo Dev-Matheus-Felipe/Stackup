@@ -71,7 +71,7 @@ export default function HomePost({post, ref} : {post: Post, ref?: RefObject<HTML
 
           <div className="flex items-center gap-1">
             <Heart size={16}  />
-            <p className="text-xs">{post.likes}</p>
+            <p className="text-xs">{post.likedBy.length}</p>
           </div>
         </div>
       </div>
