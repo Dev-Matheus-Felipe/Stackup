@@ -36,8 +36,6 @@ public class Post {
   @Column (nullable = false, length = 250)
   private String body;
 
-  private Integer likes;
-
   @Column(name = "created_at")
   private Date createdAt;
 

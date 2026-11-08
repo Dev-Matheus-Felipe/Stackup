@@ -1,19 +1,15 @@
-import { Commment } from "./comments";
-import { User } from "./users";
+import { UserOverview } from "./users";
 
-export interface Post {
+export interface PostOverview {
   id: number,
   title: string,
   body: string,
-  likedBy: User[],
   createdAt: Date,
-  code: string,
-  user: User,
-    
-  tags: string[],
-  comments: Commment[]
-}
 
-export interface PostOverview extends Post {
+  user: UserOverview,
+  tags: string[],
+
+  likes: number,
+  iLiked: boolean,
   commentsCount: number,
 }

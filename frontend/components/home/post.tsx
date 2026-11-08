@@ -1,10 +1,10 @@
-import { Post } from "@/types/posts";
+import { PostOverview } from "@/types/posts";
 import { Bookmark, Heart, MessageCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getGeneralTime, getUserIconColor } from "@/lib/general";
 import { RefObject } from "react";
 
-export default function HomePost({post, ref} : {post: Post, ref?: RefObject<HTMLDivElement | null>}){
+export default function HomePost({post, ref} : {post: PostOverview, ref?: RefObject<HTMLDivElement | null>}){
   const { user } = post;
 
   const userHasIcon = user.avatar.startsWith("https://");
@@ -46,7 +46,7 @@ export default function HomePost({post, ref} : {post: Post, ref?: RefObject<HTML
 
         {/* LEFT */}
         <div className="flex items-center gap-2 min-w-0">
-          <Avatar className={"sm:w-9 sm:h-9 w-7 h-7"}>
+          <Avatar className={"w-7 h-7"}>
             { userHasIcon &&
               <AvatarImage src={userIcon} alt={user.username}  />
             }
@@ -56,7 +56,7 @@ export default function HomePost({post, ref} : {post: Post, ref?: RefObject<HTML
             </AvatarFallback>
           </Avatar>
 
-          <h2 className="max-es:text-xs">{user.username}</h2>
+          <h2 className="max-es:text-xs text-sm">{user.username}</h2>
           <p className="text-xs text-(--muted) truncate ">
             {getGeneralTime({date: post.createdAt})}
           </p>
@@ -66,12 +66,12 @@ export default function HomePost({post, ref} : {post: Post, ref?: RefObject<HTML
         <div className="flex items-center gap-3 text-(--muted)">
           <div className="flex items-center gap-1">
             <MessageCircle size={16}  />
-            <p className="text-xs">{post.comments?.length ?? 0}</p>
+            <p className="text-xs">{post.commentsCount}</p>
           </div>
 
           <div className="flex items-center gap-1">
-            <Heart size={16}  />
-            <p className="text-xs">{post.likedBy.length}</p>
+            <Heart size={16} fill={`${post.iLiked ? "white" : "transparent"}`} className={`${post.iLiked && "text-white"}`}   />
+            <p className="text-xs">{post.likes}</p>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-package com.stackup.backend.dto;
+package com.stackup.backend.dto.userDTOs;
 
 import java.sql.Date;
 

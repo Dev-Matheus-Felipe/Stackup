@@ -56,7 +56,7 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
         </button>
 
         <Link className="rounded-full cursor-pointer" href={"/profile"}>
-          <Avatar className={"w-11 h-11 hover:opacity-60"}>
+          <Avatar className={"w-10 h-10 hover:opacity-60"}>
             { avatar.startsWith("https://") &&
                <AvatarImage
                   src={avatar} 

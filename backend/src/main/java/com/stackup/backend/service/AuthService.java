@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.stackup.backend.dto.LoginDTO;
-import com.stackup.backend.dto.RegisterDTO;
+import com.stackup.backend.dto.auth.LoginDTO;
+import com.stackup.backend.dto.auth.RegisterDTO;
 import com.stackup.backend.entity.User;
 import com.stackup.backend.repository.UserRepository;
 

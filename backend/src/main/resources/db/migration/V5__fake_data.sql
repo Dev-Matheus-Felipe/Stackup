@@ -1,5 +1,20 @@
--- Dev seed data (30 users, 20 tags, 50 posts, 30 comments).
--- Keep this file in db/seed-dev so it only runs with the dev Flyway locations.
+-- Dev seed data: 31 users, 20 tags, 50 posts (+ tags, likes, favorites), 30 comments (+ likes).
+-- Run it OUTSIDE the backend (psql), after Flyway has created the schema (V1 to V4).
+-- It wipes every app table first, so each table starts empty. Never run this against production.
+-- flyway_schema_history is not touched.
+
+BEGIN;
+
+TRUNCATE TABLE
+    comments_likes,
+    posts_likes,
+    post_favorites,
+    posts_tags,
+    comments,
+    posts,
+    tags,
+    users
+RESTART IDENTITY CASCADE;
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
@@ -14,6 +29,7 @@ SELECT
     current_date - (60 + floor(random() * 60))::int
 FROM (VALUES
     ('test_user', 'teste@gmail.com', 'Account used for testing the platform.', 'https://testuser.dev'),
+    ('finalboss', 'finalboss@gmail.com', 'Project owner. Account used to test the whole platform.', NULL),
     ('emma_carter', 'emma.carter@outlook.com', 'Backend developer who loves clean APIs and strong coffee.', 'https://emmacarter.dev'),
     ('liam_johnson', 'liam.johnson@yahoo.com', 'Full-stack dev. Currently learning Rust on weekends.', NULL),
     ('olivia_martin', 'olivia.martin@proton.me', 'Frontend engineer focused on accessibility.', 'https://oliviamartin.dev'),
@@ -68,7 +84,7 @@ INSERT INTO tags (name) VALUES
     ('database'),
     ('frontend');
 
--- 3) POSTS (50) and their tags (2 to 5 each)
+-- 3) POSTS (50) and their tags (2 to 4 each)
 WITH seed (title, body, code, author, tag_names) AS (
     VALUES
     ('Flyway checksum mismatch after editing an old migration, how do I fix it?',
@@ -350,8 +366,8 @@ jobs:
      'daniel_green', ARRAY['api-rest', 'spring-boot', 'frontend'])
 ),
 new_posts AS (
-    INSERT INTO posts (title, body, code, likes, user_id, created_at)
-    SELECT s.title, s.body, s.code, floor(random() * 31)::int, u.id,
+    INSERT INTO posts (title, body, code, author, created_at)
+    SELECT s.title, s.body, s.code, u.id,
            current_date - floor(random() * 60)::int
     FROM seed s
     JOIN users u ON u.username = s.author
@@ -458,9 +474,66 @@ WITH seed (post_title, commenter, body) AS (
      'ava_thompson',
      'Don''t forget to cache layers with the build-push-action cache options. It cut our pipeline from six minutes to about two.')
 )
-INSERT INTO comments (body, likes, post_id, author, created_at)
-SELECT s.body, floor(random() * 31)::int, p.id, u.id,
+INSERT INTO comments (body, post_id, author, created_at)
+SELECT s.body, p.id, u.id,
        LEAST(current_date, p.created_at + floor(random() * 4)::int)
 FROM seed s
 JOIN posts p ON p.title = s.post_title
 JOIN users u ON u.username = s.commenter;
+
+-- 5) POST LIKES (0 to 30 distinct random users per post)
+WITH wanted AS (
+    SELECT id AS post_id, floor(random() * 31)::int AS n
+    FROM posts
+)
+INSERT INTO posts_likes (post_id, user_id)
+SELECT w.post_id, r.user_id
+FROM wanted w
+CROSS JOIN LATERAL (
+    SELECT u.id AS user_id
+    FROM users u
+    ORDER BY random()
+    LIMIT w.n
+) r;
+
+-- 6) COMMENT LIKES (0 to 15 distinct random users per comment)
+WITH wanted AS (
+    SELECT id AS comment_id, floor(random() * 16)::int AS n
+    FROM comments
+)
+INSERT INTO comments_likes (comment_id, user_id)
+SELECT w.comment_id, r.user_id
+FROM wanted w
+CROSS JOIN LATERAL (
+    SELECT u.id AS user_id
+    FROM users u
+    ORDER BY random()
+    LIMIT w.n
+) r;
+
+-- 7) POST FAVORITES (2 or 3 random posts per user)
+WITH wanted AS (
+    SELECT id AS user_id, 2 + floor(random() * 2)::int AS n
+    FROM users
+)
+INSERT INTO post_favorites (post_id, user_id)
+SELECT r.post_id, w.user_id
+FROM wanted w
+CROSS JOIN LATERAL (
+    SELECT p.id AS post_id
+    FROM posts p
+    ORDER BY random()
+    LIMIT w.n
+) r;
+
+COMMIT;
+
+-- Quick check of what was inserted
+SELECT 'users' AS tabela, count(*) AS linhas FROM users
+UNION ALL SELECT 'tags', count(*) FROM tags
+UNION ALL SELECT 'posts', count(*) FROM posts
+UNION ALL SELECT 'posts_tags', count(*) FROM posts_tags
+UNION ALL SELECT 'comments', count(*) FROM comments
+UNION ALL SELECT 'posts_likes', count(*) FROM posts_likes
+UNION ALL SELECT 'comments_likes', count(*) FROM comments_likes
+UNION ALL SELECT 'post_favorites', count(*) FROM post_favorites;

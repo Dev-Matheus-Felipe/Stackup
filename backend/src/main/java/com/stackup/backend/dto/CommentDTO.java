@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.stackup.backend.dto.userDTOs.UserDTO;
 import com.stackup.backend.entity.Comment;
 
 public record CommentDTO(

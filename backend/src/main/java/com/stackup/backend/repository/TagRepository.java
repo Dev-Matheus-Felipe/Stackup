@@ -1,11 +1,15 @@
 package com.stackup.backend.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.stackup.backend.entity.Tag;
+import com.stackup.backend.interfaces.PostsTags;
 import com.stackup.backend.interfaces.TagCount;
 
 
@@ -20,4 +24,13 @@ public interface TagRepository  extends JpaRepository<Tag, Long> {
         """
     )
     Slice<TagCount> findTopTags(Pageable pageable);
+
+    @Query (
+        """
+            SELECT p.id as postId, t.name as tagName FROM Post p
+            JOIN p.tags t
+            WHERE p.id IN :postIds
+        """
+    )
+    List<PostsTags> findAllInPostIds(@Param("postIds") List<Long> postIds);
 }

@@ -1,7 +1,8 @@
 package com.stackup.backend.service;
 
 import java.util.List;
-import java.util.stream.Collector;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
@@ -9,8 +10,9 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.stackup.backend.dto.PostDTO;
-import com.stackup.backend.entity.Post;
+import com.stackup.backend.dto.postDTOs.PostOverviewDTO;
+import com.stackup.backend.dto.responses.PostOverviewResponse;
+import com.stackup.backend.interfaces.PostsTags;
 import com.stackup.backend.repository.PostRepository;
 
 
@@ -18,24 +20,31 @@ import com.stackup.backend.repository.PostRepository;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final TagSevice tagSevice;
 
-    public PostService(PostRepository postRepository){
+    public PostService(PostRepository postRepository, TagSevice tagSevice){
         this.postRepository = postRepository;
+        this.tagSevice = tagSevice;
     }
 
     @Transactional(readOnly = true)
-    public Slice<PostDTO> getPosts(Integer amount, Integer offset, Boolean tops){
+    public PostOverviewResponse getPosts(Integer amount, Integer offset, Boolean tops, Long userId){
 
-        Slice<Post> posts = !tops
-            ? postRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(offset, amount))
-            : postRepository.findAllByLikesDesc(PageRequest.of(0, amount));
+        Slice<PostOverviewDTO> posts = postRepository.findByOrder(userId, tops ? "likes" : "createdAt", PageRequest.of(offset, amount));
+        List<Long> ids = posts.getContent().stream().map(PostOverviewDTO::id).collect(Collectors.toList());
+
+        Map<Long, Set<String>> tags = ids.isEmpty()
+            ? Map.of()
+            : tagSevice.getPostTags(ids).stream().collect(
+                Collectors.groupingBy(PostsTags::getPostId, Collectors.mapping(PostsTags::getTagName, Collectors.toSet()))
+            );
         
-        return posts.map(PostDTO::noComments);
+        List<PostOverviewDTO> finalPosts = posts.getContent()
+            .stream()
+            .map(p -> p.withTags(tags.getOrDefault(p.id(), Set.of())))
+            .collect(Collectors.toList());
+        
+        return new PostOverviewResponse(finalPosts, posts.hasNext());
     }
 
-    public List<PostDTO> getUserTopPosts(Long id, Integer amount){
-        Slice<Post> posts = postRepository.findTopPostsUser(id, PageRequest.of(0, amount));
-
-        return posts.getContent().stream().map(PostDTO::noComments).collect(Collectors.toList());
-    }
 }

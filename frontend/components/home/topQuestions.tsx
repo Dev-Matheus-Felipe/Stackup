@@ -1,8 +1,8 @@
 import { getData } from "@/lib/actions/main";
-import { Post } from "@/types/posts";
+import { PostOverview } from "@/types/posts";
 
 export default async function HomeTopQuestions(){
-  const posts = await getData<Post[]>({
+  const posts = await getData<PostOverview[]>({
     cache: {tag: "topTags", time: "hours"},
     endpoint: "/posts/some?amount=3&offset=0&tops=true", 
   });
@@ -22,7 +22,7 @@ export default async function HomeTopQuestions(){
 
           <div className="overflow-hidden pb-1 last:pb-0">
             <h1 className="truncate">{p.title}</h1>
-            <p className="text-(--muted) text-xs">{p.likedBy.length} likes</p>
+            <p className="text-(--muted) text-xs">{p.likes} likes</p>
           </div>
         </div>
       ))}

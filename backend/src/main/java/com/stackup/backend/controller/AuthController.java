@@ -3,8 +3,8 @@ package com.stackup.backend.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stackup.backend.dto.LoginDTO;
-import com.stackup.backend.dto.RegisterDTO;
+import com.stackup.backend.dto.auth.LoginDTO;
+import com.stackup.backend.dto.auth.RegisterDTO;
 import com.stackup.backend.service.AuthService;
 
 import org.springframework.http.ResponseEntity;

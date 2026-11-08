@@ -139,7 +139,7 @@ async function BannerWapper(){
       <p className="text-(--orange) sm:pb-3 pb-2 font-bold tracking-wider">A community for those who build.</p>
         
       <h1 className="lg:text-3xl text-2xl font-bold">
-        <span className="max-es:hidden">Hello <span className="text-(--orange)">{name}</span>,</span>
+        <span className="max-es:hidden">Hello <span className="text-(--orange)">{name}</span>, </span>
         What will we do today?
       </h1>
       <h2 className="lg:text-sm text-xs text-(--color)/10">Find people, get answers, share knowledge, and grow with the community.</h2>

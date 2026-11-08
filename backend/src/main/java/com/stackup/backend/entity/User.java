@@ -47,7 +47,7 @@ public class User {
     @Column (length = 500)
     private String avatar;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "author")
     private List<Post> posts = new ArrayList<>();
 
     public User(String username, String email, String password){

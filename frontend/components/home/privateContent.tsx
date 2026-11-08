@@ -2,7 +2,7 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getData } from "@/lib/actions/main";
-import { Post } from "@/types/posts";
+import { PostOverview } from "@/types/posts";
 import HomePost from "./post";
 import { Skeleton } from "../ui/skeleton";
 import { useEffect, useRef } from "react";
@@ -19,7 +19,7 @@ export default function PrivateContent(){
 
   } = useInfiniteQuery({
     queryKey: ['posts'],
-    queryFn: ({pageParam}) => getData<Post[]>({endpoint: `/posts/some?amount=10&offset=${pageParam}`}), 
+    queryFn: ({pageParam}) => getData<PostOverview[]>({endpoint: `/posts/some?amount=10&offset=${pageParam}`}), 
     initialPageParam: 0,
 
     staleTime: 1000 * 60 * 10,
@@ -42,6 +42,8 @@ export default function PrivateContent(){
     
     return () => observer.disconnect();
   }, [hasNextPage, posts.length, isFetchingNextPage, fetchNextPage]);
+
+  console.log(posts);
 
 
   return (

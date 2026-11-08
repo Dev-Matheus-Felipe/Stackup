@@ -7,3 +7,9 @@ export interface User {
   createdAt: Date,
   avatar: string
 }
+
+export interface UserOverview {
+  id: string,
+  username: string,
+  avatar: string
+}
