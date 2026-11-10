@@ -19,7 +19,7 @@ export default function TopBar(){
         <div className="flex gap-2 items-center justify-start">
 
           <div className=" p-2 rounded-md bg-(--orange)">
-            <LibraryBig size={18} />
+            <LibraryBig size={18} color="white" />
           </div>
 
           <h1 className="font-bold es:text-2xl text-lg max-es:hidden">

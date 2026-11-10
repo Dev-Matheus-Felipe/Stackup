@@ -1,9 +1,14 @@
 package com.stackup.backend.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stackup.backend.service.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController 
@@ -14,6 +19,14 @@ public class UserController {
 
     public UserController(UserService userService){
         this.userService = userService;
+    }
+
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(@AuthenticationPrincipal Jwt jwt){
+        Long id = Long.parseLong(jwt.getSubject());
+
+        return userService.getProfileData(id);
     }
 
     

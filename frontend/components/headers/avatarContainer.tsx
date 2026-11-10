@@ -25,6 +25,7 @@ import {
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import HomeAvatarLoading from "../loadings/home/avatar";
 
 export default function AvatarContainer({avatar, userName} : {avatar: string, userName: string}){
   const [mounted, setMounted] = useState(false);
@@ -33,7 +34,7 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
   useEffect(() => setMounted(true), []);
 
   if (!mounted){
-    return null;
+    return <HomeAvatarLoading />;
   }
   
   const ThemeIcon = theme == "light" ? Moon : Sun;

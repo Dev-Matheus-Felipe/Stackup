@@ -28,7 +28,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostOverviewResponse getPosts(Integer amount, Integer offset, Boolean tops, Long userId){
+    public PostOverviewResponse getXPosts(Integer amount, Integer offset, Boolean tops, Long userId){
 
         Slice<PostOverviewDTO> posts = postRepository.findByOrder(userId, tops ? "likes" : "createdAt", PageRequest.of(offset, amount));
         List<Long> ids = posts.getContent().stream().map(PostOverviewDTO::id).collect(Collectors.toList());

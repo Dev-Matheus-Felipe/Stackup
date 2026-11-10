@@ -31,7 +31,7 @@ public class PostController {
         @RequestParam(defaultValue = "false") Boolean tops
     ) {
 
-        PostOverviewResponse res = postService.getPosts(amount, offset, tops, Long.parseLong(jwt.getSubject()));
+        PostOverviewResponse res = postService.getXPosts(amount, offset, tops, Long.parseLong(jwt.getSubject()));
 
         return ResponseEntity.ok().body(Map.of(
             "sucess", true, 

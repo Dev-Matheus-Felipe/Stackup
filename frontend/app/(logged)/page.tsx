@@ -58,8 +58,8 @@ export default function Home() {
         {/* TOP QUESTIONS */}
         <div className="bg-(--surface) w-full border border-(--border) rounded-lg h-60 flex flex-col gap-3 px-4 pt-4 pb-2 justify-start">
           <div className="flex items-center gap-3 pl-3">
-            <div className="p-1 rounded bg-(--orange)/10 ">
-              <Flame size={20} color="var(--orange-dark)"/>
+            <div className="p-1.5 rounded bg-(--orange)/10 ">
+              <Flame size={20} color="var(--orange-dark)" className="font-extrabold!"/>
             </div>
 
             <h2 className="text-md font-semibold">Trending this week</h2>

@@ -68,6 +68,7 @@
 
 @theme {
   --breakpoint-es: 500px;
+  --breakpoint-s: 600px;
 }
 
 * {
