@@ -13,3 +13,12 @@ export interface PostOverview {
   iLiked: boolean,
   commentsCount: number,
 }
+
+
+export interface PostProfile {
+  id: number,
+  title: string,
+  date: Date,
+
+  respones: number
+}

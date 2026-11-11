@@ -6,3 +6,7 @@ export interface Tag {
 export interface TopTag extends Tag {
     total: number
 }
+
+export interface TagProfile extends Tag {
+    count: number
+}

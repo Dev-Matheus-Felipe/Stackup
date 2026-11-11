@@ -22,7 +22,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/profile")
+    @GetMapping("/my-profile")
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal Jwt jwt){
         Long id = Long.parseLong(jwt.getSubject());
 

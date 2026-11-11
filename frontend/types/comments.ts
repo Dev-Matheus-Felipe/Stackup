@@ -7,3 +7,10 @@ export interface Commment {
   body: string,
   author: User
 }
+
+export interface CommentProfile {
+  id: number,
+  body: string,
+  createdAt: Date,
+  likes: number
+}

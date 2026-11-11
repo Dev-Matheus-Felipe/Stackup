@@ -1,6 +1,7 @@
 package com.stackup.backend.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.stackup.backend.dto.responses.UserMainProfileDTO;
 import com.stackup.backend.dto.userDTOs.UserDTO;
 import com.stackup.backend.dto.userDTOs.profile.ProfileCommentDTO;
+import com.stackup.backend.dto.userDTOs.profile.ProfileMainInfo;
 import com.stackup.backend.dto.userDTOs.profile.ProfilePostDTO;
 import com.stackup.backend.repository.CommentRepository;
 import com.stackup.backend.repository.PostRepository;
@@ -26,7 +28,7 @@ public class UserService {
         this.commentRepository = commentRepository;
     }
 
-    public ResponseEntity<UserMainProfileDTO> getProfileData(Long id){
+    public ResponseEntity<?> getProfileData(Long id){
         UserDTO user = UserDTO.from(userRepository
             .findById(id).orElseThrow(() -> new RuntimeException("user not found!")));
 
@@ -35,18 +37,16 @@ public class UserService {
         List<ProfilePostDTO> top_posts = postRepository
             .findTopProfilePosts(id , PageRequest.of(0, 3));
 
-        Integer posts_count = postRepository.countByAuthor_Id(id);
-
         // ---------------------------------------------------------- //
 
         List<ProfileCommentDTO> top_comments = commentRepository
             .findTopProfileComments(id, PageRequest.of(0, 3));
 
-        Integer comments_count = commentRepository.countByAuthor_Id(id);
-
         // ---------------------------------------------------------- //
 
-        return  ResponseEntity.ok().body(new UserMainProfileDTO(user, top_posts, top_comments, posts_count + comments_count));
+        ProfileMainInfo data = userRepository.findDataCount(id);
+
+        return  ResponseEntity.ok().body(Map.of("success", true, "data", new UserMainProfileDTO(user, top_posts, top_comments, data)));
     }
 
 

@@ -47,9 +47,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Slice<PostOverviewDTO> findByOrder(@Param ("currentUserId") Long currentUserId, @Param ("orderBy") String orderBy, Pageable pageable);
 
 
-    Integer countByAuthor_Id(Long id);
-
-
     @Query ("""
         SELECT new com.stackup.backend.dto.userDTOs.profile.ProfilePostDTO(
             p.id,

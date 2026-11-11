@@ -1,4 +1,4 @@
-package com.stackup.backend.dto;
+package com.stackup.backend.dto.tagDTOs;
 
 import com.stackup.backend.entity.Tag;
 

@@ -11,8 +11,7 @@ import com.stackup.backend.dto.userDTOs.profile.ProfileCommentDTO;
 import com.stackup.backend.entity.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    Integer countByAuthor_Id(Long id);
-
+    
     @Query ("""
         SELECT new com.stackup.backend.dto.userDTOs.profile.ProfileCommentDTO(
             c.id,

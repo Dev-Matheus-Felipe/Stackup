@@ -7,12 +7,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
+import com.stackup.backend.dto.tagDTOs.TagCountDTO;
 import com.stackup.backend.interfaces.PostsTags;
 import com.stackup.backend.interfaces.TagCount;
 import com.stackup.backend.repository.TagRepository;
 
 @Service 
 public class TagSevice {
+    
     private final TagRepository tagRepository;
 
     public TagSevice(TagRepository tagRepository){
@@ -29,5 +31,9 @@ public class TagSevice {
 
     public List<PostsTags> getPostTags(List<Long> postIds){
         return tagRepository.findAllInPostIds(postIds);
+    }
+
+    public List<TagCountDTO> getProfileTags(Long userId){
+        return tagRepository.findUserTopTags(userId);
     }
 }
