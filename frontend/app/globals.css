@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+
 :root {
   --navy: #242c3c;
   --orange: #f26430;
@@ -12,6 +13,9 @@
 
 [data-theme='light'] {
   color: #292d35;
+
+  --opposite: black;
+
   background: #f5f6f8;
   font-synthesis: none;
 
@@ -43,10 +47,15 @@
   
   --scroll: #8e8f92;
   --scroll-soft: rgb(46, 51, 56);
+
+  --flex-line: rgba(0,0,0,0.2);
 } 
-        
+         
 [data-theme='dark'] {
   color: #f4f1ec;
+
+  --opposite: white;
+
   background: #111315;
   --surface: #1a1d20;
   --surface-soft: #22262a; 
@@ -64,7 +73,9 @@
 
   --scroll: #292D37;
   --scroll-soft: #22262a;
-} 
+   
+  --flex-line: var(--scroll);    
+}    
 
 @theme {
   --breakpoint-es: 500px;

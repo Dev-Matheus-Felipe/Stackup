@@ -2,9 +2,9 @@
 
 import { Compass, Flame, FolderHeart, House, LogOut, Tag, Trophy, Users } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
-import Link from "next/link"
 import { toast } from "sonner";
 import { logoutAction } from "@/lib/actions/main";
+import Link from "next/link";
 
 const linksStyle = `flex items-center p-3 pl-4.5 hover:bg-(--navbar-color)/10 hover:text-(--navbar-color) rounded-lg  
 gap-4 cursor-pointer duration-100`;
@@ -15,7 +15,7 @@ export default function LeftBar(){
   const pathname = usePathname();
   const router = useRouter();
 
-  const url = pathname.split("/")[0];
+  const url = pathname;
 
   async function logout(){
     await logoutAction();
@@ -35,43 +35,43 @@ export default function LeftBar(){
         <div className="flex flex-col gap-2 text-(--muted) text-sm">
           <h2 className="text-xs mt-3 uppercase font-bold ml-5 mb-1">Menu</h2>
           
-          <div className={`${linksStyle} ${url == ""  && linkSelected}`}>
+          <Link href={"/"} className={`${linksStyle} ${url == "/"  && linkSelected}`}>
             <House size={18} />
-            <Link href={""}>Home</Link>
-          </div>
+            <h2>Home</h2>
+          </Link>
           
-          <div className={`${linksStyle}  ${url == "explore" && linkSelected}`}>
+          <Link href={"/"} className={`${linksStyle}  ${url == "explore" && linkSelected}`}>
             <Compass size={18} />
-            <Link href={""}>Explore</Link>
-          </div>
+            <h2>Explore</h2>
+          </Link>
 
-          <div className={`${linksStyle} ${url == "favorites" && linkSelected}`}>
+          <Link href={"/tags"} className={`${linksStyle} ${url.startsWith("/tags") && linkSelected}`}>
             <Tag size={18} />
-            <Link href={""}>Tags</Link>
-          </div>
+            <h2>Tags</h2>
+          </Link>
 
-          <div className={`${linksStyle} ${url == "favorites" && linkSelected}`}>
+          <Link href={"/"} className={`${linksStyle} ${url == "favorites" && linkSelected}`}>
             <FolderHeart size={18} />
-            <Link href={""}>Collections</Link>
-          </div>
+            <h2>Collections</h2>
+          </Link>
 
-          <div className={`${linksStyle} ${url == "profile" && linkSelected}`}>
+          <Link href={"/"} className={`${linksStyle} ${url == "profile" && linkSelected}`}>
             <Users size={18} />
-            <Link href={""}>Community</Link>
-          </div>
+            <h2>Community</h2>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-2 text-(--muted) text-sm">
           <h2 className="text-xs mt-3 uppercase font-bold ml-5 mb-1">Ranks</h2>
           
-          <div className={`${linksStyle} ${url == "topusers" && linkSelected}`}>
+          <Link href={"/"} className={`${linksStyle} ${url == "topusers" && linkSelected}`}>
             <Trophy size={18} />
-            <Link href={""}>Top User</Link>
-          </div>
+            <h2>Top User</h2>
+          </Link>
 
           <div className={`${linksStyle}  ${url == "explore" && linkSelected}`}>
             <Flame size={18} />
-            <Link href={""}>Best Posts</Link>
+            <h2>Best Posts</h2>
           </div>
         </div>
 

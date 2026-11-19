@@ -7,5 +7,6 @@ public record ProfilePostDTO(
     String title,
     Date createdAt,
 
-    Integer responses
+    Integer responses,
+    String type
 ) {}

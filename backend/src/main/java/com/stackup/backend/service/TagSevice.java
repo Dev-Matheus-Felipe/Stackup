@@ -22,7 +22,9 @@ public class TagSevice {
     }
 
     public List<TagCount> getTops(Integer amount){
-        Pageable pageable = PageRequest.of(0, amount);
+        Pageable pageable = amount == 0
+            ? Pageable.unpaged()
+            : PageRequest.of(0, amount);
         
         Slice<TagCount> topTags = tagRepository.findTopTags(pageable);
 

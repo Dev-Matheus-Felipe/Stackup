@@ -18,7 +18,7 @@ export interface PostOverview {
 export interface PostProfile {
   id: number,
   title: string,
-  date: Date,
-
-  respones: number
+  createdAt: Date,
+  type: "post",
+  responses: number
 }

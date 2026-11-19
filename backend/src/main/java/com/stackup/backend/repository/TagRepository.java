@@ -17,7 +17,15 @@ import com.stackup.backend.interfaces.TagCount;
 public interface TagRepository  extends JpaRepository<Tag, Long> {
     
     @Query ("""
-        SELECT t.id AS id, t.name AS name, COUNT(p) AS total FROM Tag t
+        SELECT 
+            t.id AS id, 
+            t.name AS name, 
+            COUNT(p) AS total,
+            t.description AS description,
+            t.css_color AS css_color,
+            t.css_bg AS css_bg
+
+        FROM Tag t
         LEFT JOIN t.posts p
         GROUP BY t
         ORDER BY COUNT(p) DESC, t.name DESC
@@ -36,7 +44,10 @@ public interface TagRepository  extends JpaRepository<Tag, Long> {
         SELECT new com.stackup.backend.dto.tagDTOs.TagCountDTO(
             t.id,
             t.name,
-            count(p)
+            count(p),
+            t.description,
+            t.css_color,
+            t.css_bg
         ) 
         
         FROM Tag t JOIN t.posts p

@@ -28,6 +28,18 @@ public class UserService {
         this.commentRepository = commentRepository;
     }
 
+    public long calcReputation(long posts, long likes, long comentarios) {
+        double media = (double) likes / Math.max(posts, 1);
+        double confianca = Math.min(posts, 10) / 10.0;
+
+        double score = 100 * Math.log1p(posts)
+            + 50  * Math.log1p(likes)
+            + 20  * Math.log1p(comentarios)
+            + 30  * Math.log1p(media) * confianca;
+
+        return Math.round(score);
+    }
+
     public ResponseEntity<?> getProfileData(Long id){
         UserDTO user = UserDTO.from(userRepository
             .findById(id).orElseThrow(() -> new RuntimeException("user not found!")));
@@ -35,18 +47,19 @@ public class UserService {
         // ---------------------------------------------------------- //
 
         List<ProfilePostDTO> top_posts = postRepository
-            .findTopProfilePosts(id , PageRequest.of(0, 3));
+            .findTopProfilePosts(id , PageRequest.of(0, 5));
 
         // ---------------------------------------------------------- //
 
         List<ProfileCommentDTO> top_comments = commentRepository
-            .findTopProfileComments(id, PageRequest.of(0, 3));
+            .findTopProfileComments(id, PageRequest.of(0, 5));
 
         // ---------------------------------------------------------- //
 
         ProfileMainInfo data = userRepository.findDataCount(id);
+        long reputation = calcReputation(data.PostsCount(), data.PostsLikes() + data.CommentsLikes(), data.CommentsCount());
 
-        return  ResponseEntity.ok().body(Map.of("success", true, "data", new UserMainProfileDTO(user, top_posts, top_comments, data)));
+        return  ResponseEntity.ok().body(Map.of("success", true, "data", new UserMainProfileDTO(user, top_posts, top_comments, data, reputation)));
     }
 
 

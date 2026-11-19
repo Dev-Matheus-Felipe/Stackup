@@ -43,9 +43,6 @@ export default function PrivateContent(){
     return () => observer.disconnect();
   }, [hasNextPage, posts.length, isFetchingNextPage, fetchNextPage]);
 
-  console.log(posts);
-
-
   return (
     <div className="flex-1 flex flex-col gap-10 min-w-0">
       { posts.map((post, index) => (

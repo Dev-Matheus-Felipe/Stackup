@@ -31,7 +31,7 @@ export default function TopBar(){
 
         <div className="max-w-150 w-full es:h-11 h-9 relative border border-(--border) rounded-md  overflow-hidden">
           <input 
-            className="w-full h-full pl-11 pr-5 text-xs outline-0 bg-(--surface-soft)"
+            className="w-full h-full pl-11 pr-5 text-sm outline-0 bg-(--surface-soft)"
             type="text" 
             placeholder="Search questions, tags and more..." 
           />

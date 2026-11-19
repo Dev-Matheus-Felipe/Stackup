@@ -6,5 +6,6 @@ public record ProfileCommentDTO(
     Long id,
     String body,
     Date createdAt,
-    Integer likes
+    Integer likes,
+    String type
 ) {}

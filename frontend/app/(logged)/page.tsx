@@ -56,8 +56,8 @@ export default function Home() {
       <div className="w-80 h-full shrink-0 max-xl:hidden flex flex-col gap-5">
         
         {/* TOP QUESTIONS */}
-        <div className="bg-(--surface) w-full border border-(--border) rounded-lg h-60 flex flex-col gap-3 px-4 pt-4 pb-2 justify-start">
-          <div className="flex items-center gap-3 pl-3">
+        <div className="bg-(--surface) w-full border border-(--border) rounded-lg max-h-60 flex flex-col gap-3 p-4 justify-start">
+          <div className="flex items-center gap-3">
             <div className="p-1.5 rounded bg-(--orange)/10 ">
               <Flame size={20} color="var(--orange-dark)" className="font-extrabold!"/>
             </div>
@@ -71,7 +71,7 @@ export default function Home() {
         </div>
 
         {/* TOP TAGS */}
-        <div className="bg-(--surface) w-full border border-(--border) rounded-lg h-75 flex flex-col px-4 pt-5 pb-2 justify-start">
+        <div className="bg-(--surface) w-full border border-(--border) rounded-lg max-h-75 flex flex-col px-4 py-5 justify-start">
             <div className="flex justify-between items-center">
               <h2 className="text-md font-semibold">Top Tags</h2>
               <p className="text-(--orange-dark) text-sm font-semibold cursor-pointer hover:underline">See all</p>

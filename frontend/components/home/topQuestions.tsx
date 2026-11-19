@@ -11,7 +11,7 @@ export default async function HomeTopQuestions(){
     <div className="flex flex-col text-sm justify-start gap-2 flex-1">
       { posts.data.length == 0
 
-      ? <p className="mt-3">No questions have been asked yet.</p>
+      ? <p className="my-3">No questions have been asked yet.</p>
       
       : posts.data.map((p, index) => (
         <div 

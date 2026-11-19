@@ -17,7 +17,9 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             c.id,
             c.body,
             c.createdAt,
-            size(c.likedBy)
+            size(c.likedBy),
+
+            'comment'
         ) 
         
         FROM Comment c WHERE c.author.id = :authorId 

@@ -1,6 +1,9 @@
 export interface Tag {
     id: number,
-    name: string
+    name: string,
+    description: string,
+    css_color: string,
+    css_bg: string
 }
 
 export interface TopTag extends Tag {

@@ -52,8 +52,8 @@ public class AuthService {
     public ResponseEntity<?> LoginUser(LoginDTO user){
         User userDB = userRepository.findByEmail(user.email()).orElse(null);
 
-        if(userDB.equals(null) || !passwordEncoder.matches(user.password(), userDB.getPassword())){
-            return ResponseEntity.badRequest().body(Map.of("sucess", false, "message", "Invalid credentials!"));
+        if(userDB == null || !passwordEncoder.matches(user.password(), userDB.getPassword())){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("sucess", false, "message", "Invalid credentials!"));
         }
 
         String token = tokenService.createToken(userDB);

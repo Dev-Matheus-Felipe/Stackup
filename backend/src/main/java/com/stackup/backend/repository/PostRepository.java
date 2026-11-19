@@ -52,7 +52,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             p.id,
             p.title,
             p.createdAt,
-            size(p.comments)
+            size(p.comments),
+            
+            'post'
         ) 
         
         FROM Post p WHERE p.author.id = :authorId 

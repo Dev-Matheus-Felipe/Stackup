@@ -81,6 +81,7 @@ export default function AuthContent(){
     else {
       toast.error(res.message, {id: loading});
       setError("email", {type: "validate", message: "Wrong email or password!"});
+      setError("password", {type: "validate", message: "Wrong email or password!"});
     }
   };
 

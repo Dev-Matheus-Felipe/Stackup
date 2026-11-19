@@ -4,6 +4,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +25,8 @@ import lombok.Setter;
 @Table(name = "users")
 @Entity 
 @NoArgsConstructor 
+@DynamicInsert 
+@DynamicUpdate 
 public class User {
 
     @Id 
@@ -41,9 +48,12 @@ public class User {
     @Column (length = 500)
     private String bio;
     
-    @Column (name = "created_at")
+
+    @Generated (event = EventType.INSERT)
+    @Column (name = "created_at", updatable = false)
     private Date createdAt;
     
+    @Generated (event = EventType.INSERT)
     @Column (length = 500)
     private String avatar;
 

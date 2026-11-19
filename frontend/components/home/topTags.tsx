@@ -2,6 +2,7 @@ import { getData } from "@/lib/actions/main";
 import { TopTag } from "@/types/tags";
 
 export default async function TopTags(){
+  
   const topTags = await getData<TopTag[]>({
     cache: {tag: "topPosts", time: "hours"},
     endpoint: "/tags/tops?amount=5", 
@@ -10,16 +11,21 @@ export default async function TopTags(){
   return (
     <div className="flex-1 flex flex-col gap-2 justify-around mt-2">
       { topTags.data.length == 0
-      ? <p className="flex-1 flex items-start mt-3 text-sm">None tag has been created so far.</p>
+      ? <p className="flex-1 flex items-start my-3 text-sm">None tag has been created so far.</p>
 
-      : topTags.data.map(t => (
-        <div className="flex w-full justify-between items-center group cursor-pointer" key={t.id}>
+      : topTags.data.map(({total, name, id, css_color, css_bg}) => (
+        <div className="flex w-full justify-between items-center group cursor-pointer" key={id}>
           <div className="flex items-center gap-4">
-              <span className="w-7 h-7 flex items-center justify-center rounded bg-(--orange-soft) text-(--orange-dark) font-bold">#</span>
-              <p className="text-sm group-hover:text-(--orange)">{t.name}</p>
+              <span 
+                className={`w-7 h-7 flex items-center justify-center rounded font-bold`}
+                style={{ backgroundColor: css_bg, color: css_color }}
+              >
+                #
+              </span>
+              <p className="text-sm group-hover:text-(--orange)">{name}</p>
           </div>
 
-          <span className="text-(--muted) text-sm">{t.total}</span>
+          <span className="text-(--muted) text-sm">{total}</span>
         </div>
       )) }
     </div>

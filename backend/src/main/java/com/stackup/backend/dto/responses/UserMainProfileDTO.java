@@ -13,6 +13,6 @@ public record UserMainProfileDTO(
     List<ProfilePostDTO> topPosts,
     List<ProfileCommentDTO> topComments,
 
-    ProfileMainInfo totals
-
+    ProfileMainInfo totals,
+    Long reputation
 ) {}

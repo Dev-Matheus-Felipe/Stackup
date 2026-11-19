@@ -12,5 +12,6 @@ export interface CommentProfile {
   id: number,
   body: string,
   createdAt: Date,
+  type: "comment"
   likes: number
 }

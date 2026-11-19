@@ -28,7 +28,7 @@ public class TagController {
     }
 
     @GetMapping("/tops")
-    public ResponseEntity<?> getTopTags(@RequestParam Integer amount) {
+    public ResponseEntity<?> getTopTags(@RequestParam(defaultValue = "0") Integer amount) {
         List<TagCount> topTags = tagSevice.getTops(amount);
 
         return ResponseEntity.ok().body(Map.of("sucess", true, "data", topTags)); 

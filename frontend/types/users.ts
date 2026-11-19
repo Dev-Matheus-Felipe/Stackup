@@ -31,5 +31,6 @@ export interface UserProfile extends ProfileMainInfo {
   topPosts: PostProfile[],
   topComments: CommentProfile[],
 
-  totals: ProfileMainInfo
+  totals: ProfileMainInfo,
+  reputation: number
 }
