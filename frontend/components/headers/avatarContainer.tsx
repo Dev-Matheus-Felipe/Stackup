@@ -51,10 +51,13 @@ export default function AvatarContainer({avatar, userName} : {avatar: string, us
           <ThemeIcon size={18} className="group-hover:text-(--orange-dark)" />
         </button>
 
-        <button className="bg-(--orange) text-white h-9.5 px-3 cursor-pointer hover:bg-(--orange-dark) rounded text-sm flex items-center gap-1">
+        <Link 
+          href={"/question"} 
+          className="bg-(--orange) text-white h-9.5 px-3 cursor-pointer hover:bg-(--orange-dark) rounded text-sm flex items-center gap-1"
+        >
           <Plus size={18} />
           Ask a question
-        </button>
+        </Link>
 
         <Link className="rounded-full cursor-pointer" href={"/profile"}>
           <Avatar className={"w-10 h-10 hover:opacity-60"}>

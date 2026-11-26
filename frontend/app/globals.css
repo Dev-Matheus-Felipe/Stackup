@@ -57,6 +57,7 @@
   --opposite: white;
 
   background: #111315;
+  --background: #111315;
   --surface: #1a1d20;
   --surface-soft: #22262a; 
   --text: #f4f1ec;

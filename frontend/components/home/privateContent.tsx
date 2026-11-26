@@ -45,7 +45,10 @@ export default function PrivateContent(){
 
   return (
     <div className="flex-1 flex flex-col gap-10 min-w-0">
-      { posts.map((post, index) => (
+      { posts.length == 0 
+        ? <p className="text-sm underline">No posts has been created yet.</p>
+    
+        : posts.map((post, index) => (
           <HomePost post={post} key={post.id} ref={index === (posts.length -1) ? ref : undefined} />
         ))
       }
