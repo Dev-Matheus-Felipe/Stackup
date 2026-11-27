@@ -31,6 +31,11 @@ services:
 
     env_file:
       - ./backend/.env
+
+    develop:
+      watch:
+        - path: ./backend
+          action: rebuild
       
   stackupfront:
     container_name: stackupfront
@@ -38,6 +43,21 @@ services:
     build: 
       dockerfile: frontend.prod.dockerFile
       context: .
+
+    develop:
+      watch: 
+        - path: ./frontend
+          action: sync
+          target: /app
+          ignore:
+            - node_modules/
+            - .next/
+            
+        - path: ./frontend/package.json
+          action: rebuild
+
+        - path: ./frontend/package-lock.json
+          action: rebuild
 
     depends_on:
       - stackupapi
